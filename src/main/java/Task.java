@@ -1,5 +1,5 @@
 public class Task {
-    protected String description;
+    protected  String description;
     protected boolean isDone;
 
     public Task(String description) {
@@ -9,5 +9,9 @@ public class Task {
 
     public String getStatusIcon() {
         return (isDone ? "X" : " ");
+    }
+
+    public String getDescription() {
+        return this.description;
     }
 }
