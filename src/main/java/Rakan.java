@@ -1,6 +1,20 @@
+import java.util.Scanner;
+
 public class Rakan {
     public static void main(String[] args) {
         greet();
+        Scanner scanner = new Scanner(System.in);
+
+        while (true) {
+            String userInput = scanner.nextLine();
+
+            if(userInput.equalsIgnoreCase("bye")) {
+                break;
+            }
+            else {
+                System.out.println(userInput);
+            }
+        }
         exit();
     }
 
