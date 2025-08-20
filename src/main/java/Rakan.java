@@ -1,18 +1,33 @@
 import java.util.Scanner;
 
+import static java.util.Objects.isNull;
+
 public class Rakan {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
+        String[] stringList = new String[100];
+        int counter = 0;
 
         while (true) {
             String userInput = scanner.nextLine();
 
-            if(userInput.equalsIgnoreCase("bye")) {
+            if (userInput.equalsIgnoreCase("bye")) {
                 break;
-            }
-            else {
-                System.out.println(userInput);
+            } else if (userInput.equalsIgnoreCase("list")) {
+                if (isNull(stringList[0])) {
+                    System.out.println("Nothing here!");
+                } else {
+                    int i = 0;
+                    while (!isNull(stringList[i])) {
+                        System.out.println((i + 1) + ". " + stringList[i]);
+                        i++;
+                    }
+                }
+            } else {
+                stringList[counter] = userInput;
+                System.out.println("Added: " + userInput);
+                counter++;
             }
         }
         exit();
