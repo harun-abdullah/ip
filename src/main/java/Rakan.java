@@ -16,13 +16,15 @@ public class Rakan {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
                 if (isNull(taskList[0])) {
-                    System.out.println("Nothing here!");
+                    entry("Nothing here yet!");
                 } else {
                     int i = 0;
+                    String list = "Tasklist: ";
                     while (!isNull(taskList[i])) {
-                        System.out.println((i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+                        list = String.join("\n", list, (i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
                         i++;
                     }
+                    entry(list);
                 }
             } else if (userInput.toLowerCase().startsWith("mark")) {
                 handleMark(userInput, taskList, true);
@@ -30,7 +32,7 @@ public class Rakan {
                 handleMark(userInput, taskList, false);
             } else {
                 taskList[counter] = new Task(userInput);
-                System.out.println("Added: " + userInput);
+                entry("Added: " + userInput);
                 counter++;
             }
         }
@@ -42,7 +44,7 @@ public class Rakan {
         String[] parts = input.split("\\s+", 2);
 
         if (parts.length < 2) {
-            System.out.println("Please provide a task number after \"" + keyword + "\".");
+            entry("Please provide a task number after \"" + keyword + "\".");
             return;
         }
 
@@ -52,39 +54,45 @@ public class Rakan {
 
             // check if number provided is valid
             if (index < 0 || index >= taskList.length || taskList[index] == null) {
-                System.out.println("No such task: " + taskNumber);
+                entry("No such task: " + taskNumber);
                 return;
             }
 
             if (isMark) {
                 if (taskList[index].isDone) {
-                    System.out.println("This task is already marked as done!");
+                    entry("This task is already marked as done!");
                     return;
                 }
                 taskList[index].markAsDone();
             } else {
                 if (!taskList[index].isDone) {
-                    System.out.println("This task is already marked as not done!");
+                    entry("This task is already marked as not done!");
                     return;
                 }
                 taskList[index].markAsNotDone();
             }
-            System.out.println(isMark
+            entry((isMark
                     ? "Nice! I've marked this task as done:"
-                    : "OK, I've marked this task as not done yet:");
-            System.out.println("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription());
-
+                    : "OK, I've marked this task as not done yet:")
+                + "\n" + ("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription())
+            );
         } catch (NumberFormatException e) {
-            System.out.println("Invalid task number: " + parts[1]);
+            entry("Invalid task number: " + parts[1]);
         }
     }
 
 
     public static void greet() {
-        System.out.println("Wazzap. I'm Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25 \nHow can I help you?");
+        entry("Wazzap. I'm Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25 \nHow can I help you?");
     }
 
     public static void exit() {
-        System.out.println("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40 ");
+        entry("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40 ");
+    }
+
+    public static void entry(String message) {
+        System.out.println("---------------------------------------------------------------------------------");
+        System.out.println(message);
+        System.out.println("---------------------------------------------------------------------------------");
     }
 }
