@@ -6,7 +6,7 @@ public class Rakan {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
-        String[] stringList = new String[100];
+        Task[] taskList = new Task[100];
         int counter = 0;
 
         while (true) {
@@ -15,17 +15,17 @@ public class Rakan {
             if (userInput.equalsIgnoreCase("bye")) {
                 break;
             } else if (userInput.equalsIgnoreCase("list")) {
-                if (isNull(stringList[0])) {
+                if (isNull(taskList[0])) {
                     System.out.println("Nothing here!");
                 } else {
                     int i = 0;
-                    while (!isNull(stringList[i])) {
-                        System.out.println((i + 1) + ". " + stringList[i]);
+                    while (!isNull(taskList[i])) {
+                        System.out.println((i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
                         i++;
                     }
                 }
             } else {
-                stringList[counter] = userInput;
+                taskList[counter] = new Task(userInput);
                 System.out.println("Added: " + userInput);
                 counter++;
             }
@@ -40,6 +40,4 @@ public class Rakan {
     public static void exit() {
         System.out.println("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40 ");
     }
-
-
 }
