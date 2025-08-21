@@ -33,14 +33,25 @@ public class Rakan {
             } else if (userInput.toLowerCase().startsWith("todo")) {
                     String description = userInput.substring(4).trim();
                     if (description.isEmpty()) {
-                        entry("☹ OOPS!!! The description of a todo cannot be empty.");
+                        entry("Hold on. The description of a todo cannot be empty.");
                         continue;
                     }
                     taskList[counter] = new ToDo(description);
                     entry("Got it. I've added this task:\n  " + taskList[counter]
                             + "\nNow you have " + (counter + 1) + " tasks in the list.");
                     counter++;
-
+            } else if (userInput.toLowerCase().startsWith("deadline")) {
+                String[] parts = userInput.substring(8).split("/by", 2);
+                if (parts.length < 2) {
+                    entry("Wait wait wait. The deadline command needs a description and a /by date.");
+                    continue;
+                }
+                String description = parts[0].trim();
+                String by = parts[1].trim();
+                taskList[counter] = new Deadline(description, by);
+                entry("Got it. I've added this task:\n  " + taskList[counter]
+                        + "\nNow you have " + (counter + 1) + " tasks in the list.");
+                counter++;
 
             } else {
                 entry("Sorry, not sure what that means");
