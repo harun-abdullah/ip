@@ -40,18 +40,7 @@ public class Rakan {
                 } else if (userInput.toLowerCase().startsWith("todo")) {
                     createTodo(userInput, taskList);
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
-                    String[] parts = userInput.substring(8).split("/by", 2);
-                    if (parts.length < 2) {
-                        throw new RakanException("Wait wait wait. The deadline command needs a description and a /by date.");
-                    }
-                    String description = parts[0].trim();
-                    String by = parts[1].trim();
-
-                    Task deadline = new Deadline(description, by);
-                    taskList.add(deadline);
-                    entry("Got it. I've added this task:\n  "
-                            + deadline + "\n"
-                            + "Now you have " + taskList.size() + " tasks in the list.");
+                    createDeadline(userInput, taskList);
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     String[] parts = userInput.substring(5).split("/from", 2);
                     if (parts.length < 2 || !parts[1].contains("/to")) {
@@ -89,6 +78,24 @@ public class Rakan {
         entry("Got it. I've added this task:\n  " + todo
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
+
+    public static void createDeadline(String input, ArrayList<Task> taskList) throws RakanException {
+        String[] parts = input.substring(8).split("/by", 2);
+        if (parts.length < 2) {
+            throw new RakanException("Wait wait wait. The deadline command needs a description and a /by date.");
+        }
+
+        String description = parts[0].trim();
+        String by = parts[1].trim();
+
+        Task deadline = new Deadline(description, by);
+        taskList.add(deadline);
+
+        entry("Got it. I've added this task:\n  "
+                + deadline + "\n"
+                + "Now you have " + taskList.size() + " tasks in the list.");
+    }
+
 
     public static void handleDelete(String input, ArrayList<Task> taskList) throws RakanException {
         String[] parts = input.split("\\s+", 2);
