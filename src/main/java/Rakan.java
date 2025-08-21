@@ -19,12 +19,6 @@ public class Rakan {
                     if (taskList.isEmpty()) {
                         throw new RakanException("Nothing here yet!");
                     } else {
-//                        int i = 0;
-//                        String list = "Tasklist:";
-//                        while (!isNull(taskList[i])) {
-//                            list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
-//                            i++;
-//                        }
 
                         // use a StringBuilder to create the list
                         StringBuilder list = new StringBuilder("Tasklist:");
@@ -41,6 +35,8 @@ public class Rakan {
                     handleMark(userInput, taskList, true);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
                     handleMark(userInput, taskList, false);
+                } else if (userInput.toLowerCase().startsWith("delete")) {
+                    handleDelete(userInput, taskList);
                 } else if (userInput.toLowerCase().startsWith("todo")) {
                     String description = userInput.substring(4).trim();
                     if (description.isEmpty()) {
@@ -61,8 +57,9 @@ public class Rakan {
 
                     Task deadline = new Deadline(description, by);
                     taskList.add(deadline);
-                    entry("Got it. I've added this task:\n  " + deadline
-                            + "\nNow you have " + taskList.size() + " tasks in the list.");
+                    entry("Got it. I've added this task:\n  "
+                            + deadline + "\n"
+                            + "Now you have " + taskList.size() + " tasks in the list.");
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     String[] parts = userInput.substring(5).split("/from", 2);
                     if (parts.length < 2 || !parts[1].contains("/to")) {
@@ -85,10 +82,38 @@ public class Rakan {
             } catch (RakanException e) {
                 entry(e.getMessage());
             }
-
-
         }
         exit();
+    }
+
+    public static void handleDelete(String input, ArrayList<Task> taskList){
+        String[] parts = input.split("\\s+", 2);
+
+        if (parts.length < 2) {
+            entry("Please provide a task number to delete.");
+            return;
+        }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            int index = taskNumber - 1;
+
+            // check if number provided is valid
+            if (index < 0 || index >= taskList.size() || isNull(taskList.get(index))) {
+                entry("No such task: " + taskNumber);
+                return;
+            }
+
+            Task task = taskList.get(index);
+            taskList.remove(index);
+
+            entry("Yes boss. I've removed the task below:\n" +
+                    task + "\n"
+                    + "Now you have " + taskList.size() + " tasks in the list");
+
+        } catch (NumberFormatException e) {
+            entry("Invalid task number: " + parts[1]);
+        }
     }
 
     public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) {
