@@ -21,7 +21,7 @@ public class Rakan {
                     int i = 0;
                     String list = "Tasklist: ";
                     while (!isNull(taskList[i])) {
-                        list = String.join("\n", list, (i + 1) + ". " + taskList[i].toString());
+                        list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
                         i++;
                     }
                     entry(list);
@@ -30,10 +30,20 @@ public class Rakan {
                 handleMark(userInput, taskList, true);
             } else if (userInput.toLowerCase().startsWith("unmark")) {
                 handleMark(userInput, taskList, false);
+            } else if (userInput.toLowerCase().startsWith("todo")) {
+                    String description = userInput.substring(4).trim();
+                    if (description.isEmpty()) {
+                        entry("☹ OOPS!!! The description of a todo cannot be empty.");
+                        continue;
+                    }
+                    taskList[counter] = new ToDo(description);
+                    entry("Got it. I've added this task:\n  " + taskList[counter]
+                            + "\nNow you have " + (counter + 1) + " tasks in the list.");
+                    counter++;
+
+
             } else {
-                taskList[counter] = new Task(userInput);
-                entry("Added: " + userInput);
-                counter++;
+                entry("Sorry, not sure what that means");
             }
         }
         exit();
@@ -74,13 +84,12 @@ public class Rakan {
             entry((isMark
                     ? "Nice! I've marked this task as done:"
                     : "OK, I've marked this task as not done yet:")
-                + "\n" + taskList[index].toString()
+                + "\n" + taskList[index]
             );
         } catch (NumberFormatException e) {
             entry("Invalid task number: " + parts[1]);
         }
     }
-
 
     public static void greet() {
         entry("Wazzap. I'm Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25 \nHow can I help you?");
