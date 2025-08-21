@@ -19,7 +19,7 @@ public class Rakan {
                     entry("Nothing here yet!");
                 } else {
                     int i = 0;
-                    String list = "Tasklist: ";
+                    String list = "Tasklist:";
                     while (!isNull(taskList[i])) {
                         list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
                         i++;
@@ -118,11 +118,11 @@ public class Rakan {
     }
 
     public static void greet() {
-        entry("Wazzap. I'm Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25 \nHow can I help you?");
+        entry("Wazzap. I'm Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?");
     }
 
     public static void exit() {
-        entry("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40 ");
+        entry("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40");
     }
 
     public static void entry(String message) {
