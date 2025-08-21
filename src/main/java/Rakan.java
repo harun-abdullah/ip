@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import static java.util.Objects.isNull;
@@ -6,8 +7,7 @@ public class Rakan {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
-        Task[] taskList = new Task[100];
-        int counter = 0;
+        ArrayList<Task> taskList = new ArrayList<>();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -16,16 +16,26 @@ public class Rakan {
                 if (userInput.equalsIgnoreCase("bye")) {
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    if (isNull(taskList[0])) {
+                    if (taskList.isEmpty()) {
                         throw new RakanException("Nothing here yet!");
                     } else {
-                        int i = 0;
-                        String list = "Tasklist:";
-                        while (!isNull(taskList[i])) {
-                            list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
-                            i++;
-                        }
-                        entry(list);
+//                        int i = 0;
+//                        String list = "Tasklist:";
+//                        while (!isNull(taskList[i])) {
+//                            list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
+//                            i++;
+//                        }
+
+                        // use a StringBuilder to create the list
+                        StringBuilder list = new StringBuilder("Tasklist:");
+                        final int[] index = {1}; // use array to mutate inside lambda
+
+                        taskList.forEach(task -> {
+                            list.append("\n").append(index[0]).append(". ").append(task);
+                            index[0]++;
+                        });
+
+                        entry(list.toString());
                     }
                 } else if (userInput.toLowerCase().startsWith("mark")) {
                     handleMark(userInput, taskList, true);
@@ -36,10 +46,11 @@ public class Rakan {
                     if (description.isEmpty()) {
                         throw new RakanException("Hold on. The description of a todo cannot be empty.");
                     }
-                    taskList[counter] = new ToDo(description);
-                    entry("Got it. I've added this task:\n  " + taskList[counter]
-                            + "\nNow you have " + (counter + 1) + " tasks in the list.");
-                    counter++;
+
+                    Task todo = new ToDo(description);
+                    taskList.add(todo);
+                    entry("Got it. I've added this task:\n  " + todo
+                            + "\nNow you have " + taskList.size() + " tasks in the list.");
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
                     String[] parts = userInput.substring(8).split("/by", 2);
                     if (parts.length < 2) {
@@ -47,10 +58,11 @@ public class Rakan {
                     }
                     String description = parts[0].trim();
                     String by = parts[1].trim();
-                    taskList[counter] = new Deadline(description, by);
-                    entry("Got it. I've added this task:\n  " + taskList[counter]
-                            + "\nNow you have " + (counter + 1) + " tasks in the list.");
-                    counter++;
+
+                    Task deadline = new Deadline(description, by);
+                    taskList.add(deadline);
+                    entry("Got it. I've added this task:\n  " + deadline
+                            + "\nNow you have " + taskList.size() + " tasks in the list.");
                 } else if (userInput.toLowerCase().startsWith("event")) {
                     String[] parts = userInput.substring(5).split("/from", 2);
                     if (parts.length < 2 || !parts[1].contains("/to")) {
@@ -61,10 +73,11 @@ public class Rakan {
                     String[] times = parts[1].split("/to", 2);
                     String from = times[0].trim();
                     String to = times[1].trim();
-                    taskList[counter] = new Event(description, from, to);
-                    entry("Got it. I've added this task:\n  " + taskList[counter]
-                            + "\nNow you have " + (counter + 1) + " tasks in the list.");
-                    counter++;
+
+                    Task event = new Event(description, from, to);
+                    taskList.add(event);
+                    entry("Got it. I've added this task:\n  " + event
+                            + "\nNow you have " + taskList.size() + " tasks in the list.");
 
                 } else {
                     throw new RakanException("Sorry, not sure what that means");
@@ -78,7 +91,7 @@ public class Rakan {
         exit();
     }
 
-    public static void handleMark(String input, Task[] taskList, boolean isMark) {
+    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) {
         String keyword = isMark ? "mark" : "unmark";
         String[] parts = input.split("\\s+", 2);
 
@@ -92,28 +105,30 @@ public class Rakan {
             int index = taskNumber - 1;
 
             // check if number provided is valid
-            if (index < 0 || index >= taskList.length || taskList[index] == null) {
+            if (index < 0 || index >= taskList.size() || isNull(taskList.get(index))) {
                 entry("No such task: " + taskNumber);
                 return;
             }
 
+            Task task = taskList.get(index);
+
             if (isMark) {
-                if (taskList[index].isDone) {
+                if (task.isDone) {
                     entry("This task is already marked as done!");
                     return;
                 }
-                taskList[index].markAsDone();
+                task.markAsDone();
             } else {
-                if (!taskList[index].isDone) {
+                if (!task.isDone) {
                     entry("This task is already marked as not done!");
                     return;
                 }
-                taskList[index].markAsNotDone();
+                task.markAsNotDone();
             }
             entry((isMark
                     ? "Nice! I've marked this task as done:"
                     : "OK, I've marked this task as not done yet:")
-                + "\n" + taskList[index]
+                + "\n" + task
             );
         } catch (NumberFormatException e) {
             entry("Invalid task number: " + parts[1]);
