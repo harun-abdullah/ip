@@ -16,21 +16,7 @@ public class Rakan {
                 if (userInput.equalsIgnoreCase("bye")) {
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    if (taskList.isEmpty()) {
-                        throw new RakanException("Nothing here yet!");
-                    } else {
-
-                        // use a StringBuilder to create the list
-                        StringBuilder list = new StringBuilder("Tasklist:");
-                        final int[] index = {1}; // use array to mutate inside lambda
-
-                        taskList.forEach(task -> {
-                            list.append("\n").append(index[0]).append(". ").append(task);
-                            index[0]++;
-                        });
-
-                        entry(list.toString());
-                    }
+                    showList(taskList);
                 } else if (userInput.toLowerCase().startsWith("mark")) {
                     handleMark(userInput, taskList, true);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
@@ -51,6 +37,23 @@ public class Rakan {
             }
         }
         exit();
+    }
+
+    public static void showList(ArrayList<Task> taskList) throws RakanException {
+        if (taskList.isEmpty()) {
+            throw new RakanException("Nothing here yet!");
+        } else {
+            // use a StringBuilder to create the list
+            StringBuilder list = new StringBuilder("Tasklist:");
+            final int[] index = {1}; // use array to mutate inside lambda
+
+            taskList.forEach(task -> {
+                list.append("\n").append(index[0]).append(". ").append(task);
+                index[0]++;
+            });
+
+            entry(list.toString());
+        }
     }
 
     public static void createTodo(String input, ArrayList<Task> taskList) throws RakanException {
