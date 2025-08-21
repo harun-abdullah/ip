@@ -86,12 +86,11 @@ public class Rakan {
         exit();
     }
 
-    public static void handleDelete(String input, ArrayList<Task> taskList){
+    public static void handleDelete(String input, ArrayList<Task> taskList) throws RakanException{
         String[] parts = input.split("\\s+", 2);
 
         if (parts.length < 2) {
-            entry("Please provide a task number to delete.");
-            return;
+            throw new RakanException("Please provide a task number to delete.");
         }
 
         try {
@@ -100,8 +99,7 @@ public class Rakan {
 
             // check if number provided is valid
             if (index < 0 || index >= taskList.size() || isNull(taskList.get(index))) {
-                entry("No such task: " + taskNumber);
-                return;
+                throw new RakanException("No such task: " + taskNumber);
             }
 
             Task task = taskList.get(index);
@@ -112,17 +110,16 @@ public class Rakan {
                     + "Now you have " + taskList.size() + " tasks in the list");
 
         } catch (NumberFormatException e) {
-            entry("Invalid task number: " + parts[1]);
+            throw new RakanException("Invalid task number: " + parts[1]);
         }
     }
 
-    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) {
+    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) throws RakanException{
         String keyword = isMark ? "mark" : "unmark";
         String[] parts = input.split("\\s+", 2);
 
         if (parts.length < 2) {
-            entry("Please provide a task number after \"" + keyword + "\".");
-            return;
+            throw new RakanException("Please provide a task number after \"" + keyword + "\".");
         }
 
         try {
@@ -131,22 +128,19 @@ public class Rakan {
 
             // check if number provided is valid
             if (index < 0 || index >= taskList.size() || isNull(taskList.get(index))) {
-                entry("No such task: " + taskNumber);
-                return;
+                throw new RakanException("No such task: " + taskNumber);
             }
 
             Task task = taskList.get(index);
 
             if (isMark) {
                 if (task.isDone) {
-                    entry("This task is already marked as done!");
-                    return;
+                    throw new RakanException("This task is already marked as done!");
                 }
                 task.markAsDone();
             } else {
                 if (!task.isDone) {
-                    entry("This task is already marked as not done!");
-                    return;
+                    throw new RakanException("This task is already marked as not done!");
                 }
                 task.markAsNotDone();
             }
@@ -156,7 +150,7 @@ public class Rakan {
                 + "\n" + task
             );
         } catch (NumberFormatException e) {
-            entry("Invalid task number: " + parts[1]);
+            throw new RakanException("Invalid task number: " + parts[1]);
         }
     }
 
