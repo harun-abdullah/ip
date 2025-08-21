@@ -21,7 +21,7 @@ public class Rakan {
                     int i = 0;
                     String list = "Tasklist: ";
                     while (!isNull(taskList[i])) {
-                        list = String.join("\n", list, (i + 1) + ".[" + taskList[i].getStatusIcon() + "] " + taskList[i].getDescription());
+                        list = String.join("\n", list, (i + 1) + ". " + taskList[i].toString());
                         i++;
                     }
                     entry(list);
@@ -74,7 +74,7 @@ public class Rakan {
             entry((isMark
                     ? "Nice! I've marked this task as done:"
                     : "OK, I've marked this task as not done yet:")
-                + "\n" + ("  [" + taskList[index].getStatusIcon() + "] " + taskList[index].getDescription())
+                + "\n" + taskList[index].toString()
             );
         } catch (NumberFormatException e) {
             entry("Invalid task number: " + parts[1]);
