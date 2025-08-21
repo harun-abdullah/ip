@@ -12,65 +12,68 @@ public class Rakan {
         while (true) {
             String userInput = scanner.nextLine();
 
-            if (userInput.equalsIgnoreCase("bye")) {
-                break;
-            } else if (userInput.equalsIgnoreCase("list")) {
-                if (isNull(taskList[0])) {
-                    entry("Nothing here yet!");
-                } else {
-                    int i = 0;
-                    String list = "Tasklist:";
-                    while (!isNull(taskList[i])) {
-                        list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
-                        i++;
+            try {
+                if (userInput.equalsIgnoreCase("bye")) {
+                    break;
+                } else if (userInput.equalsIgnoreCase("list")) {
+                    if (isNull(taskList[0])) {
+                        throw new RakanException("Nothing here yet!");
+                    } else {
+                        int i = 0;
+                        String list = "Tasklist:";
+                        while (!isNull(taskList[i])) {
+                            list = String.join("\n", list, (i + 1) + ". " + taskList[i]);
+                            i++;
+                        }
+                        entry(list);
                     }
-                    entry(list);
-                }
-            } else if (userInput.toLowerCase().startsWith("mark")) {
-                handleMark(userInput, taskList, true);
-            } else if (userInput.toLowerCase().startsWith("unmark")) {
-                handleMark(userInput, taskList, false);
-            } else if (userInput.toLowerCase().startsWith("todo")) {
+                } else if (userInput.toLowerCase().startsWith("mark")) {
+                    handleMark(userInput, taskList, true);
+                } else if (userInput.toLowerCase().startsWith("unmark")) {
+                    handleMark(userInput, taskList, false);
+                } else if (userInput.toLowerCase().startsWith("todo")) {
                     String description = userInput.substring(4).trim();
                     if (description.isEmpty()) {
-                        entry("Hold on. The description of a todo cannot be empty.");
-                        continue;
+                        throw new RakanException("Hold on. The description of a todo cannot be empty.");
                     }
                     taskList[counter] = new ToDo(description);
                     entry("Got it. I've added this task:\n  " + taskList[counter]
                             + "\nNow you have " + (counter + 1) + " tasks in the list.");
                     counter++;
-            } else if (userInput.toLowerCase().startsWith("deadline")) {
-                String[] parts = userInput.substring(8).split("/by", 2);
-                if (parts.length < 2) {
-                    entry("Wait wait wait. The deadline command needs a description and a /by date.");
-                    continue;
-                }
-                String description = parts[0].trim();
-                String by = parts[1].trim();
-                taskList[counter] = new Deadline(description, by);
-                entry("Got it. I've added this task:\n  " + taskList[counter]
-                        + "\nNow you have " + (counter + 1) + " tasks in the list.");
-                counter++;
-            } else if (userInput.toLowerCase().startsWith("event")) {
-                String[] parts = userInput.substring(5).split("/from", 2);
-                if (parts.length < 2 || !parts[1].contains("/to")) {
-                    entry("Hold your horses. The event command needs a description, /from and /to.");
-                    continue;
-                }
+                } else if (userInput.toLowerCase().startsWith("deadline")) {
+                    String[] parts = userInput.substring(8).split("/by", 2);
+                    if (parts.length < 2) {
+                        throw new RakanException("Wait wait wait. The deadline command needs a description and a /by date.");
+                    }
+                    String description = parts[0].trim();
+                    String by = parts[1].trim();
+                    taskList[counter] = new Deadline(description, by);
+                    entry("Got it. I've added this task:\n  " + taskList[counter]
+                            + "\nNow you have " + (counter + 1) + " tasks in the list.");
+                    counter++;
+                } else if (userInput.toLowerCase().startsWith("event")) {
+                    String[] parts = userInput.substring(5).split("/from", 2);
+                    if (parts.length < 2 || !parts[1].contains("/to")) {
+                        throw new RakanException("Hold your horses. The event command needs a description, /from and /to.");
+                    }
 
-                String description = parts[0].trim();
-                String[] times = parts[1].split("/to", 2);
-                String from = times[0].trim();
-                String to = times[1].trim();
-                taskList[counter] = new Event(description, from, to);
-                entry("Got it. I've added this task:\n  " + taskList[counter]
-                        + "\nNow you have " + (counter + 1) + " tasks in the list.");
-                counter++;
+                    String description = parts[0].trim();
+                    String[] times = parts[1].split("/to", 2);
+                    String from = times[0].trim();
+                    String to = times[1].trim();
+                    taskList[counter] = new Event(description, from, to);
+                    entry("Got it. I've added this task:\n  " + taskList[counter]
+                            + "\nNow you have " + (counter + 1) + " tasks in the list.");
+                    counter++;
 
-            } else {
-                entry("Sorry, not sure what that means");
+                } else {
+                    throw new RakanException("Sorry, not sure what that means");
+                }
+            } catch (RakanException e) {
+                entry(e.getMessage());
             }
+
+
         }
         exit();
     }
