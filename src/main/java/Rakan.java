@@ -38,15 +38,7 @@ public class Rakan {
                 } else if (userInput.toLowerCase().startsWith("delete")) {
                     handleDelete(userInput, taskList);
                 } else if (userInput.toLowerCase().startsWith("todo")) {
-                    String description = userInput.substring(4).trim();
-                    if (description.isEmpty()) {
-                        throw new RakanException("Hold on. The description of a todo cannot be empty.");
-                    }
-
-                    Task todo = new ToDo(description);
-                    taskList.add(todo);
-                    entry("Got it. I've added this task:\n  " + todo
-                            + "\nNow you have " + taskList.size() + " tasks in the list.");
+                    createTodo(userInput, taskList);
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
                     String[] parts = userInput.substring(8).split("/by", 2);
                     if (parts.length < 2) {
@@ -86,7 +78,19 @@ public class Rakan {
         exit();
     }
 
-    public static void handleDelete(String input, ArrayList<Task> taskList) throws RakanException{
+    public static void createTodo(String input, ArrayList<Task> taskList) throws RakanException {
+        String description = input.substring(4).trim();
+        if (description.isEmpty()) {
+            throw new RakanException("Hold on. The description of a todo cannot be empty.");
+        }
+
+        Task todo = new ToDo(description);
+        taskList.add(todo);
+        entry("Got it. I've added this task:\n  " + todo
+                + "\nNow you have " + taskList.size() + " tasks in the list.");
+    }
+
+    public static void handleDelete(String input, ArrayList<Task> taskList) throws RakanException {
         String[] parts = input.split("\\s+", 2);
 
         if (parts.length < 2) {
