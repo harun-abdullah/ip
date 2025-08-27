@@ -1,3 +1,4 @@
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -7,7 +8,7 @@ public class Rakan {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = new ArrayList<>();
+        ArrayList<Task> taskList = TaskList.loadTasks();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -32,7 +33,7 @@ public class Rakan {
                 } else {
                     throw new RakanException("Sorry, not sure what that means");
                 }
-            } catch (RakanException e) {
+            } catch (RakanException | IOException e) {
                 entry(e.getMessage());
             }
         }
@@ -56,7 +57,7 @@ public class Rakan {
         }
     }
 
-    public static void createTodo(String input, ArrayList<Task> taskList) throws RakanException {
+    public static void createTodo(String input, ArrayList<Task> taskList) throws RakanException, IOException {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
             throw new RakanException("Hold on. The description of a todo cannot be empty.");
@@ -64,6 +65,11 @@ public class Rakan {
 
         Task todo = new ToDo(description);
         taskList.add(todo);
+        try {
+            TaskList.saveTasks(taskList);
+        } catch (IOException e) {
+            throw new RakanException("Oops! Something went wrong while saving tasks: " + e.getMessage());
+        }
         entry("Got it. I've added this task:\n  " + todo
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
