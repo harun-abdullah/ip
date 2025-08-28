@@ -70,7 +70,7 @@ public class Rakan {
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
-    public static void createDeadline(String input, ArrayList<Task> taskList) throws RakanException {
+    public static void createDeadline(String input, ArrayList<Task> taskList) throws RakanException, IOException {
         String[] parts = input.substring(8).split("/by", 2);
         if (parts.length < 2) {
             throw new RakanException("Wait wait wait. The deadline command needs a description and a /by date.");
@@ -81,6 +81,7 @@ public class Rakan {
 
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
+        TaskList.saveTasks(taskList);
 
         entry("Got it. I've added this task:\n  "
                 + deadline + "\n"
