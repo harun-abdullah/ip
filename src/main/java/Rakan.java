@@ -65,11 +65,7 @@ public class Rakan {
 
         Task todo = new ToDo(description);
         taskList.add(todo);
-        try {
-            TaskList.saveTasks(taskList);
-        } catch (IOException e) {
-            throw new RakanException("Oops! Something went wrong while saving tasks: " + e.getMessage());
-        }
+        TaskList.saveTasks(taskList);
         entry("Got it. I've added this task:\n  " + todo
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
@@ -137,7 +133,7 @@ public class Rakan {
         }
     }
 
-    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) throws RakanException{
+    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) throws RakanException, IOException{
         String keyword = isMark ? "mark" : "unmark";
         String[] parts = input.split("\\s+", 2);
 
@@ -167,6 +163,9 @@ public class Rakan {
                 }
                 task.markAsNotDone();
             }
+
+            TaskList.saveTasks(taskList);
+
             entry((isMark
                     ? "Nice! I've marked this task as done:"
                     : "OK, I've marked this task as not done yet:")
