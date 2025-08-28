@@ -8,7 +8,7 @@ public class Rakan {
     public static void main(String[] args) {
         greet();
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = TaskList.loadTasks();
+        ArrayList<Task> taskList = Storage.loadTasks();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -65,7 +65,7 @@ public class Rakan {
 
         Task todo = new ToDo(description);
         taskList.add(todo);
-        TaskList.saveTasks(taskList);
+        Storage.saveTasks(taskList);
         entry("Got it. I've added this task:\n  " + todo
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
@@ -81,7 +81,7 @@ public class Rakan {
 
         Task deadline = new Deadline(description, by);
         taskList.add(deadline);
-        TaskList.saveTasks(taskList);
+        Storage.saveTasks(taskList);
 
         entry("Got it. I've added this task:\n  "
                 + deadline + "\n"
@@ -101,7 +101,7 @@ public class Rakan {
 
         Task event = new Event(description, from, to);
         taskList.add(event);
-        TaskList.saveTasks(taskList);
+        Storage.saveTasks(taskList);
 
         entry("Got it. I've added this task:\n  " + event
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
@@ -125,7 +125,7 @@ public class Rakan {
 
             Task task = taskList.get(index);
             taskList.remove(index);
-            TaskList.saveTasks(taskList);
+            Storage.saveTasks(taskList);
 
             entry("Yes boss. I've removed the task below:\n" +
                     task + "\n"
@@ -168,7 +168,7 @@ public class Rakan {
                 task.markAsNotDone();
             }
 
-            TaskList.saveTasks(taskList);
+            Storage.saveTasks(taskList);
 
             entry((isMark
                     ? "Nice! I've marked this task as done:"
