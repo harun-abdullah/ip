@@ -107,7 +107,7 @@ public class Rakan {
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
     }
 
-    public static void handleDelete(String input, ArrayList<Task> taskList) throws RakanException {
+    public static void handleDelete(String input, ArrayList<Task> taskList) throws RakanException, IOException {
         String[] parts = input.split("\\s+", 2);
 
         if (parts.length < 2) {
@@ -125,6 +125,7 @@ public class Rakan {
 
             Task task = taskList.get(index);
             taskList.remove(index);
+            TaskList.saveTasks(taskList);
 
             entry("Yes boss. I've removed the task below:\n" +
                     task + "\n"
