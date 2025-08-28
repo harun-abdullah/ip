@@ -4,10 +4,27 @@ import java.util.ArrayList;
 public class Storage {
     private static final String FILE_PATH = "./data/rakan.txt";
 
+    private static void ensureFileExists() throws IOException {
+        File file = new File(FILE_PATH);
+        File parent = file.getParentFile();
+
+        if (parent != null && !parent.exists()) {
+            parent.mkdirs();
+        }
+
+        if (!file.exists()) {
+            file.createNewFile();
+        }
+    }
+
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
-        try (FileWriter writer = new FileWriter(FILE_PATH)) {
-            for (Task task : tasks) {
-                writer.write(serialize(task) + System.lineSeparator());
+
+        try {
+            ensureFileExists();
+            try (FileWriter writer = new FileWriter(FILE_PATH)) {
+                for (Task task : tasks) {
+                    writer.write(serialize(task) + System.lineSeparator());
+                }
             }
         } catch (IOException e) {
             System.out.println("Error saving tasks: " + e.getMessage());
@@ -22,12 +39,15 @@ public class Storage {
             return tasks;
         }
 
-        try (BufferedReader reader = new BufferedReader(new FileReader(file))) {
-            String line;
-            while ((line = reader.readLine()) != null) {
-                Task task = deserialize(line);
-                if (task != null) {
-                    tasks.add(task);
+        try {
+            ensureFileExists();
+            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+                String line;
+                while ((line = reader.readLine()) != null) {
+                    Task task = deserialize(line);
+                    if (task != null) {
+                        tasks.add(task);
+                    }
                 }
             }
         } catch (IOException e) {
