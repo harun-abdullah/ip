@@ -87,7 +87,7 @@ public class Rakan {
                 + "Now you have " + taskList.size() + " tasks in the list.");
     }
 
-    public static void createEvent(String input, ArrayList<Task> taskList) throws RakanException {
+    public static void createEvent(String input, ArrayList<Task> taskList) throws RakanException, IOException {
         String[] parts = input.substring(5).split("/from", 2);
         if (parts.length < 2 || !parts[1].contains("/to")) {
             throw new RakanException("Hold your horses. The event command needs a description, /from and /to.");
@@ -100,6 +100,7 @@ public class Rakan {
 
         Task event = new Event(description, from, to);
         taskList.add(event);
+        TaskList.saveTasks(taskList);
 
         entry("Got it. I've added this task:\n  " + event
                 + "\nNow you have " + taskList.size() + " tasks in the list.");
@@ -133,7 +134,8 @@ public class Rakan {
         }
     }
 
-    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) throws RakanException, IOException{
+    public static void handleMark(String input, ArrayList<Task> taskList, boolean isMark) throws RakanException, IOException
+    {
         String keyword = isMark ? "mark" : "unmark";
         String[] parts = input.split("\\s+", 2);
 
