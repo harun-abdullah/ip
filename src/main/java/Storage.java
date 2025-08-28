@@ -2,7 +2,7 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String FILE_PATH = "src/main/data/rakan.txt";
+    private static final String FILE_PATH = "./data/rakan.txt";
 
     public static void saveTasks(ArrayList<Task> tasks) throws IOException {
         try (FileWriter writer = new FileWriter(FILE_PATH)) {
