@@ -24,6 +24,10 @@ public class TaskList {
         this.tasks = tasks;
     }
 
+    public void addTask(Task task) {
+        tasks.add(task);
+    }
+
     public void createTodo(String input, Ui ui) throws RakanException, IOException {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
