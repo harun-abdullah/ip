@@ -2,11 +2,13 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import static java.util.Objects.isNull;
+
 public class Parser {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    public static String parseTodo (String input) throws RakanException {
+    public static String parseTodo(String input) throws RakanException {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
             throw new RakanException("Hold on. The description of a todo cannot be empty.");
@@ -57,4 +59,16 @@ public class Parser {
             );
         }
     }
+
+    public static int parseDelete(String input) throws RakanException {
+        String[] parts = input.split("\\s+", 2);
+
+        if (parts.length < 2) {
+            throw new RakanException("Please provide a task number to delete.");
+        }
+
+        int taskNumber = Integer.parseInt(parts[1]);
+        return taskNumber - 1;
+    }
 }
+
