@@ -16,7 +16,7 @@ public class Rakan {
     public Rakan(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
-        taskList = new TaskList(storage.loadTasks(), storage);
+        taskList = new TaskList(storage.loadTasks());
     }
 
     public void run() {
@@ -32,13 +32,24 @@ public class Rakan {
                 } else if (userInput.equalsIgnoreCase("list")) {
                     ui.showList(taskList.getTasks());
                 } else if (userInput.toLowerCase().startsWith("mark")) {
-                    taskList.handleMark(userInput, true, ui);
+                    ParsedMark parsedMark = Parser.parseMark(userInput, true, taskList.getTasks().size());
+                    Task task = taskList.getTasks().get(parsedMark.getTaskIndex());
+                    taskList.handleMark(parsedMark);
+                    storage.saveTasks(taskList.getTasks());
+                    ui.entry("Nice! I've marked this task as done:"
+                            + "\n" + task);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
-                    taskList.handleMark(userInput, false, ui);
+                    ParsedMark parsedMark = Parser.parseMark(userInput, false, taskList.getTasks().size());
+                    Task task = taskList.getTasks().get(parsedMark.getTaskIndex());
+                    taskList.handleMark(parsedMark);
+                    storage.saveTasks(taskList.getTasks());
+                    ui.entry("OK, I've marked this task as not done yet:"
+                            + "\n" + task);
                 } else if (userInput.toLowerCase().startsWith("delete")) {
                     int index = Parser.parseDelete(userInput);
                     Task task = taskList.getTasks().get(index);
                     taskList.handleDelete(index);
+                    storage.saveTasks(taskList.getTasks());
                     ui.entry("Yes boss. I've removed the task below:\n" +
                             task + "\n"
                             + "Now you have " + taskList.getTasks().size() + " tasks in the list");
