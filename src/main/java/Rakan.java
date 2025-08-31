@@ -1,5 +1,4 @@
 import java.io.IOException;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
@@ -9,8 +8,15 @@ import java.util.Scanner;
 import static java.util.Objects.isNull;
 
 public class Rakan {
-    public static void main(String[] args) {
-        greet();
+
+    private Ui ui;
+
+    public Rakan() {
+        ui = new Ui();
+    }
+
+    public void run() {
+        ui.greet();
         Scanner scanner = new Scanner(System.in);
         ArrayList<Task> taskList = Storage.loadTasks();
 
@@ -38,10 +44,14 @@ public class Rakan {
                     throw new RakanException("Sorry, not sure what that means");
                 }
             } catch (RakanException | IOException e) {
-                entry(e.getMessage());
+                ui.entry(e.getMessage());
             }
         }
-        exit();
+        ui.exit();
+    }
+
+    public static void main(String[] args) {
+        new Rakan().run();
     }
 
     public static void showList(ArrayList<Task> taskList) throws RakanException {
