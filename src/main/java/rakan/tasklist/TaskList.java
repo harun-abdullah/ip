@@ -1,5 +1,6 @@
-package rakan;
+package rakan.tasklist;
 
+import rakan.RakanException;
 import rakan.parser.ParsedMark;
 import rakan.task.Task;
 

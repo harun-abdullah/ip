@@ -1,4 +1,4 @@
-package rakan;
+package rakan.storage;
 
 import rakan.task.Deadline;
 import rakan.task.Event;
