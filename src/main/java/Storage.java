@@ -20,7 +20,7 @@ public class Storage {
         }
     }
 
-    public static void saveTasks(ArrayList<Task> tasks) throws IOException {
+    public static void saveTasks(ArrayList<Task> tasks) {
 
         try {
             ensureFileExists();
@@ -73,8 +73,8 @@ public class Storage {
             sb.append("E | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
                     .append(task.description).append(" | ")
-                    .append(e.from).append(" | ")
-                    .append(e.to);
+                    .append(e.from.format(DATE_FORMAT)).append(" | ")
+                    .append(e.to.format(DATE_FORMAT));
         } else if (task instanceof ToDo) {
             sb.append("T | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
@@ -92,19 +92,17 @@ public class Storage {
         String description = parts[2];
 
         Task task = null;
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
         switch (type) {
             case "D": {
-                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
-
-
                 LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
                 task = new Deadline(description, by);
                 break;
             }
             case "E": {
-                String from = parts[3];
-                String to = parts[4];
+                LocalDateTime from = LocalDateTime.parse(parts[3], formatter);
+                LocalDateTime to = LocalDateTime.parse(parts[4], formatter);
                 task = new Event(description, from, to);
                 break;
             }

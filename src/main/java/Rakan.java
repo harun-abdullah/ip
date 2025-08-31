@@ -111,7 +111,16 @@ public class Rakan {
         String from = times[0].trim();
         String to = times[1].trim();
 
-        Task event = new Event(description, from, to);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime fromDateTime, toDateTime;
+        try {
+            fromDateTime = LocalDateTime.parse(from, formatter);
+            toDateTime = LocalDateTime.parse(to, formatter);
+        } catch (DateTimeParseException e) {
+            throw new RakanException("I don't understand that date format. Try d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+        }
+
+        Task event = new Event(description, fromDateTime, toDateTime);
         taskList.add(event);
         Storage.saveTasks(taskList);
 
