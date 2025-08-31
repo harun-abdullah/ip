@@ -70,5 +70,28 @@ public class Parser {
         int taskNumber = Integer.parseInt(parts[1]);
         return taskNumber - 1;
     }
+
+    public static ParsedMark parseMark(String input, boolean isMark, int taskListSize) throws RakanException {
+        String keyword = isMark ? "mark" : "unmark";
+        String[] parts = input.split("\\s+", 2);
+
+        if (parts.length < 2) {
+            throw new RakanException("Please provide a task number after \"" + keyword + "\".");
+        }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            int index = taskNumber - 1;
+
+            if (index < 0 || index >= taskListSize) {
+                throw new RakanException("No such task: " + taskNumber);
+            }
+
+            return new ParsedMark(index, isMark);
+        } catch (NumberFormatException e) {
+            throw new RakanException("Invalid task number: " + parts[1]);
+        }
+    }
+
 }
 
