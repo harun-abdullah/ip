@@ -9,9 +9,11 @@ import static java.util.Objects.isNull;
 public class TaskList {
 
     private ArrayList<Task> tasks;
+    private Storage storage;
 
-    public TaskList(ArrayList<Task> tasks) {
+    public TaskList(ArrayList<Task> tasks, Storage storage) {
         this.tasks = tasks;
+        this.storage = storage;
     }
 
     public ArrayList<Task> getTasks() {
@@ -30,7 +32,7 @@ public class TaskList {
 
         Task todo = new ToDo(description);
         tasks.add(todo);
-        Storage.saveTasks(tasks);
+        storage.saveTasks(tasks);
         ui.entry("Got it. I've added this task:\n  " + todo
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
@@ -54,7 +56,7 @@ public class TaskList {
 
         Task deadline = new Deadline(description, byDateTime);
         tasks.add(deadline);
-        Storage.saveTasks(tasks);
+        storage.saveTasks(tasks);
 
         ui.entry("Got it. I've added this task:\n  "
                 + deadline + "\n"
@@ -83,7 +85,7 @@ public class TaskList {
 
         Task event = new Event(description, fromDateTime, toDateTime);
         tasks.add(event);
-        Storage.saveTasks(tasks);
+        storage.saveTasks(tasks);
 
         ui.entry("Got it. I've added this task:\n  " + event
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
@@ -107,7 +109,7 @@ public class TaskList {
 
             Task task = tasks.get(index);
             tasks.remove(index);
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
 
             ui.entry("Yes boss. I've removed the task below:\n" +
                     task + "\n"
@@ -150,7 +152,7 @@ public class TaskList {
                 task.markAsNotDone();
             }
 
-            Storage.saveTasks(tasks);
+            storage.saveTasks(tasks);
 
             ui.entry((isMark
                     ? "Nice! I've marked this task as done:"

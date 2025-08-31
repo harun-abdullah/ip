@@ -4,11 +4,15 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
-    private static final String FILE_PATH = "./data/rakan.txt";
-    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+    private String filePath;
+    private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
-    private static void ensureFileExists() throws IOException {
-        File file = new File(FILE_PATH);
+    public Storage(String filePath) {
+        this.filePath = filePath;
+    }
+
+    private void ensureFileExists() throws IOException {
+        File file = new File(filePath);
         File parent = file.getParentFile();
 
         if (parent != null && !parent.exists()) {
@@ -20,11 +24,11 @@ public class Storage {
         }
     }
 
-    public static void saveTasks(ArrayList<Task> tasks) {
+    public void saveTasks(ArrayList<Task> tasks) {
 
         try {
             ensureFileExists();
-            try (FileWriter writer = new FileWriter(FILE_PATH)) {
+            try (FileWriter writer = new FileWriter(filePath)) {
                 for (Task task : tasks) {
                     writer.write(serialize(task) + System.lineSeparator());
                 }
@@ -34,9 +38,9 @@ public class Storage {
         }
     }
 
-    public static ArrayList<Task> loadTasks() {
+    public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
-        File file = new File(FILE_PATH);
+        File file = new File(filePath);
 
         if (!file.exists()) {
             return tasks;
@@ -44,7 +48,7 @@ public class Storage {
 
         try {
             ensureFileExists();
-            try (BufferedReader reader = new BufferedReader(new FileReader(FILE_PATH))) {
+            try (BufferedReader reader = new BufferedReader(new FileReader(filePath))) {
                 String line;
                 while ((line = reader.readLine()) != null) {
                     Task task = deserialize(line);
@@ -61,7 +65,7 @@ public class Storage {
     }
 
     // Convert a task to serialised string to store
-    private static String serialize(Task task) {
+    private String serialize(Task task) {
         StringBuilder sb = new StringBuilder();
 
         if (task instanceof Deadline d) {
@@ -85,7 +89,7 @@ public class Storage {
     }
 
     // Convert a line into a Task object
-    private static Task deserialize(String line) {
+    private Task deserialize(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
         boolean isDone = parts[1].equals("1");

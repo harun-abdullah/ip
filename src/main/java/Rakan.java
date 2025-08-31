@@ -11,10 +11,12 @@ public class Rakan {
 
     private Ui ui;
     private TaskList taskList;
+    private Storage storage;
 
-    public Rakan() {
+    public Rakan(String filePath) {
         ui = new Ui();
-        taskList = new TaskList(Storage.loadTasks());
+        storage = new Storage(filePath);
+        taskList = new TaskList(storage.loadTasks(), storage);
     }
 
     public void run() {
@@ -52,6 +54,6 @@ public class Rakan {
     }
 
     public static void main(String[] args) {
-        new Rakan().run();
+        new Rakan("./data/rakan.txt").run();
     }
 }
