@@ -1,9 +1,9 @@
-package Rakan;
+package rakan;
 
-import Rakan.Tasks.Deadline;
-import Rakan.Tasks.Event;
-import Rakan.Tasks.Task;
-import Rakan.Tasks.ToDo;
+import rakan.task.Deadline;
+import rakan.task.Event;
+import rakan.task.Task;
+import rakan.task.ToDo;
 
 import java.io.*;
 import java.time.LocalDateTime;

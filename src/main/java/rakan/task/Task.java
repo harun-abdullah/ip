@@ -1,4 +1,4 @@
-package Rakan.Tasks;
+package rakan.task;
 
 public class Task {
     protected  String description;

@@ -1,13 +1,14 @@
-package Rakan;
+package rakan;
 
-import Rakan.Parsers.ParsedDeadline;
-import Rakan.Parsers.ParsedEvent;
-import Rakan.Parsers.ParsedMark;
-import Rakan.Parsers.Parser;
-import Rakan.Tasks.Deadline;
-import Rakan.Tasks.Event;
-import Rakan.Tasks.Task;
-import Rakan.Tasks.ToDo;
+import rakan.parser.ParsedDeadline;
+import rakan.parser.ParsedEvent;
+import rakan.parser.ParsedMark;
+import rakan.parser.Parser;
+import rakan.task.Deadline;
+import rakan.task.Event;
+import rakan.task.Task;
+import rakan.task.ToDo;
+import rakan.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;

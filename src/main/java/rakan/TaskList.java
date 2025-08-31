@@ -1,7 +1,7 @@
-package Rakan;
+package rakan;
 
-import Rakan.Parsers.ParsedMark;
-import Rakan.Tasks.Task;
+import rakan.parser.ParsedMark;
+import rakan.task.Task;
 
 import java.io.IOException;
 import java.util.ArrayList;

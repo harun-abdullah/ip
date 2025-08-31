@@ -1,6 +1,7 @@
-package Rakan;
+package rakan.ui;
 
-import Rakan.Tasks.Task;
+import rakan.RakanException;
+import rakan.task.Task;
 
 import java.util.ArrayList;
 

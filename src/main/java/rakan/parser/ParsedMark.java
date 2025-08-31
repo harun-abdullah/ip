@@ -1,4 +1,4 @@
-package Rakan.Parsers;
+package rakan.parser;
 
 public class ParsedMark {
     private final int taskIndex;
