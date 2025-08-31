@@ -36,7 +36,12 @@ public class Rakan {
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
                     taskList.handleMark(userInput, false, ui);
                 } else if (userInput.toLowerCase().startsWith("delete")) {
-                    taskList.handleDelete(userInput, ui);
+                    int index = Parser.parseDelete(userInput);
+                    Task task = taskList.getTasks().get(index);
+                    taskList.handleDelete(index);
+                    ui.entry("Yes boss. I've removed the task below:\n" +
+                            task + "\n"
+                            + "Now you have " + taskList.getTasks().size() + " tasks in the list");
                 } else if (userInput.toLowerCase().startsWith("todo")) {
                     String description = Parser.parseTodo(userInput);
                     ToDo toDo = new ToDo(description);

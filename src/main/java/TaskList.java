@@ -95,32 +95,19 @@ public class TaskList {
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
 
-    public void handleDelete(String input, Ui ui) throws RakanException, IOException {
-        String[] parts = input.split("\\s+", 2);
-
-        if (parts.length < 2) {
-            throw new RakanException("Please provide a task number to delete.");
-        }
+    public void handleDelete(int index) throws RakanException, IOException {
 
         try {
-            int taskNumber = Integer.parseInt(parts[1]);
-            int index = taskNumber - 1;
-
             // check if number provided is valid
             if (index < 0 || index >= tasks.size() || isNull(tasks.get(index))) {
-                throw new RakanException("No such task: " + taskNumber);
+                throw new RakanException("No such task: " + (index + 1));
             }
 
-            Task task = tasks.get(index);
             tasks.remove(index);
             storage.saveTasks(tasks);
 
-            ui.entry("Yes boss. I've removed the task below:\n" +
-                    task + "\n"
-                    + "Now you have " + tasks.size() + " tasks in the list");
-
         } catch (NumberFormatException e) {
-            throw new RakanException("Invalid task number: " + parts[1]);
+            throw new RakanException("Invalid task number: " + (index + 1));
         }
     }
 
