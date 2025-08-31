@@ -73,18 +73,18 @@ public class Storage {
         if (task instanceof Deadline d) {
             sb.append("D | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
-                    .append(task.description).append(" | ")
-                    .append(d.by.format(DATE_FORMAT));
+                    .append(task.getDescription()).append(" | ")
+                    .append(d.getBy().format(DATE_FORMAT));
         } else if (task instanceof Event e) {
             sb.append("E | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
-                    .append(task.description).append(" | ")
-                    .append(e.from.format(DATE_FORMAT)).append(" | ")
-                    .append(e.to.format(DATE_FORMAT));
+                    .append(task.getDescription()).append(" | ")
+                    .append(e.getFrom().format(DATE_FORMAT)).append(" | ")
+                    .append(e.getTo().format(DATE_FORMAT));
         } else if (task instanceof ToDo) {
             sb.append("T | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
-                    .append(task.description);
+                    .append(task.getDescription());
         }
 
         return sb.toString();
