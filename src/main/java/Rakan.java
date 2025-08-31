@@ -10,15 +10,16 @@ import static java.util.Objects.isNull;
 public class Rakan {
 
     private Ui ui;
+    private TaskList taskList;
 
     public Rakan() {
         ui = new Ui();
+        taskList = new TaskList(Storage.loadTasks());
     }
 
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
-        ArrayList<Task> taskList = Storage.loadTasks();
 
         while (true) {
             String userInput = scanner.nextLine();
@@ -27,19 +28,20 @@ public class Rakan {
                 if (userInput.equalsIgnoreCase("bye")) {
                     break;
                 } else if (userInput.equalsIgnoreCase("list")) {
-                    showList(taskList);
+                    showList(taskList.getTasks());
                 } else if (userInput.toLowerCase().startsWith("mark")) {
-                    handleMark(userInput, taskList, true);
+                    handleMark(userInput, taskList.getTasks(), true);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
-                    handleMark(userInput, taskList, false);
+                    handleMark(userInput, taskList.getTasks(), false);
                 } else if (userInput.toLowerCase().startsWith("delete")) {
-                    handleDelete(userInput, taskList);
+                    handleDelete(userInput, taskList.getTasks());
                 } else if (userInput.toLowerCase().startsWith("todo")) {
-                    createTodo(userInput, taskList);
+                    taskList.createTodo(userInput, ui);
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
-                    createDeadline(userInput, taskList);
+                    taskList.createDeadline(userInput, ui);
                 } else if (userInput.toLowerCase().startsWith("event")) {
-                    createEvent(userInput, taskList);
+                    //createEvent(userInput, taskList.getTasks());
+                    taskList.createEvent(userInput, ui);
                 } else {
                     throw new RakanException("Sorry, not sure what that means");
                 }
