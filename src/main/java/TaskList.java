@@ -4,6 +4,8 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 
+import static java.util.Objects.isNull;
+
 public class TaskList {
 
     private ArrayList<Task> tasks;
@@ -86,4 +88,34 @@ public class TaskList {
         ui.entry("Got it. I've added this task:\n  " + event
                 + "\nNow you have " + tasks.size() + " tasks in the list.");
     }
+
+    public void handleDelete(String input, Ui ui) throws RakanException, IOException {
+        String[] parts = input.split("\\s+", 2);
+
+        if (parts.length < 2) {
+            throw new RakanException("Please provide a task number to delete.");
+        }
+
+        try {
+            int taskNumber = Integer.parseInt(parts[1]);
+            int index = taskNumber - 1;
+
+            // check if number provided is valid
+            if (index < 0 || index >= tasks.size() || isNull(tasks.get(index))) {
+                throw new RakanException("No such task: " + taskNumber);
+            }
+
+            Task task = tasks.get(index);
+            tasks.remove(index);
+            Storage.saveTasks(tasks);
+
+            ui.entry("Yes boss. I've removed the task below:\n" +
+                    task + "\n"
+                    + "Now you have " + tasks.size() + " tasks in the list");
+
+        } catch (NumberFormatException e) {
+            throw new RakanException("Invalid task number: " + parts[1]);
+        }
+    }
+
 }
