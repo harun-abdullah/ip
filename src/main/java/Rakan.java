@@ -38,11 +38,33 @@ public class Rakan {
                 } else if (userInput.toLowerCase().startsWith("delete")) {
                     taskList.handleDelete(userInput, ui);
                 } else if (userInput.toLowerCase().startsWith("todo")) {
-                    taskList.createTodo(userInput, ui);
+                    String description = Parser.parseTodo(userInput);
+                    ToDo toDo = new ToDo(description);
+                    taskList.addTask(toDo);
+                    storage.saveTasks(taskList.getTasks());
+                    ui.entry("Got it. I've added this task:\n  " + toDo
+                            + "\nNow you have " + taskList.getTasks().size() + " tasks in the list.");
                 } else if (userInput.toLowerCase().startsWith("deadline")) {
-                    taskList.createDeadline(userInput, ui);
+                    ParsedDeadline parsedDeadline = Parser.parseDeadline(userInput);
+                    String description = parsedDeadline.getDescription();
+                    LocalDateTime by = parsedDeadline.getBy();
+                    Deadline deadline = new Deadline(description, by);
+                    taskList.addTask(deadline);
+                    storage.saveTasks(taskList.getTasks());
+                    ui.entry("Got it. I've added this task:\n  "
+                            + deadline + "\n"
+                            + "Now you have " + taskList.getTasks().size() + " tasks in the list.");
                 } else if (userInput.toLowerCase().startsWith("event")) {
-                    taskList.createEvent(userInput, ui);
+                    ParsedEvent parsedEvent = Parser.parseEvent(userInput);
+                    String description = parsedEvent.getDescription();
+                    LocalDateTime from = parsedEvent.getFrom();
+                    LocalDateTime to = parsedEvent.getTo();
+
+                    Event event = new Event(description, from, to);
+                    taskList.addTask(event);
+                    storage.saveTasks(taskList.getTasks());
+                    ui.entry("Got it. I've added this task:\n  " + event
+                            + "\nNow you have " + taskList.getTasks().size() + " tasks in the list.");
                 } else {
                     throw new RakanException("Sorry, not sure what that means");
                 }
