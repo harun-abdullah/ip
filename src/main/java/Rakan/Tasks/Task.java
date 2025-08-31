@@ -1,4 +1,4 @@
-package Rakan;
+package Rakan.Tasks;
 
 public class Task {
     protected  String description;
@@ -15,6 +15,10 @@ public class Task {
 
     public String getDescription() {
         return this.description;
+    }
+
+    public boolean isDone() {
+        return isDone;
     }
 
     @Override
