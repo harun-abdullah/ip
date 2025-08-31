@@ -30,9 +30,9 @@ public class Rakan {
                 } else if (userInput.equalsIgnoreCase("list")) {
                     showList(taskList.getTasks());
                 } else if (userInput.toLowerCase().startsWith("mark")) {
-                    handleMark(userInput, taskList.getTasks(), true);
+                    taskList.handleMark(userInput, true, ui);
                 } else if (userInput.toLowerCase().startsWith("unmark")) {
-                    handleMark(userInput, taskList.getTasks(), false);
+                    taskList.handleMark(userInput, false, ui);
                 } else if (userInput.toLowerCase().startsWith("delete")) {
                     taskList.handleDelete(userInput, ui);
                 } else if (userInput.toLowerCase().startsWith("todo")) {
