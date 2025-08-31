@@ -1,8 +1,11 @@
 import java.io.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class Storage {
     private static final String FILE_PATH = "./data/rakan.txt";
+    private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     private static void ensureFileExists() throws IOException {
         File file = new File(FILE_PATH);
@@ -57,6 +60,7 @@ public class Storage {
         return tasks;
     }
 
+    // Convert a task to serialised string to store
     private static String serialize(Task task) {
         StringBuilder sb = new StringBuilder();
 
@@ -64,7 +68,7 @@ public class Storage {
             sb.append("D | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
                     .append(task.description).append(" | ")
-                    .append(d.by);
+                    .append(d.by.format(DATE_FORMAT));
         } else if (task instanceof Event e) {
             sb.append("E | ")
                     .append(task.isDone ? "1" : "0").append(" | ")
@@ -91,7 +95,10 @@ public class Storage {
 
         switch (type) {
             case "D": {
-                String by = parts[3];
+                DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+
+
+                LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
                 task = new Deadline(description, by);
                 break;
             }

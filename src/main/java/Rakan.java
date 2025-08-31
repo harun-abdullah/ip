@@ -1,4 +1,8 @@
 import java.io.IOException;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -77,9 +81,17 @@ public class Rakan {
         }
 
         String description = parts[0].trim();
-        String by = parts[1].trim();
+        String byString = parts[1].trim();
 
-        Task deadline = new Deadline(description, by);
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
+        LocalDateTime byDateTime;
+        try {
+            byDateTime = LocalDateTime.parse(byString, formatter);
+        } catch (DateTimeParseException e) {
+            throw new RakanException("I don't understand that date format. Try d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+        }
+
+        Task deadline = new Deadline(description, byDateTime);
         taskList.add(deadline);
         Storage.saveTasks(taskList);
 
