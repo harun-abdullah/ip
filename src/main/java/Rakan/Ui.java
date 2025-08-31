@@ -1,5 +1,7 @@
 package Rakan;
 
+import Rakan.Tasks.Task;
+
 import java.util.ArrayList;
 
 public class Ui {

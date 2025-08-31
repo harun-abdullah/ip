@@ -1,5 +1,8 @@
 package Rakan;
 
+import Rakan.Parsers.ParsedMark;
+import Rakan.Tasks.Task;
+
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -43,12 +46,12 @@ public class TaskList {
         Task task = tasks.get(parsed.getTaskIndex());
 
         if (parsed.isMark()) {
-            if (task.isDone) {
+            if (task.isDone()) {
                 throw new RakanException("This task is already marked as done!");
             }
             task.markAsDone();
         } else {
-            if (!task.isDone) {
+            if (!task.isDone()) {
                 throw new RakanException("This task is already marked as not done!");
             }
             task.markAsNotDone();

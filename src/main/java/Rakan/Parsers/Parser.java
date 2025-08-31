@@ -1,4 +1,6 @@
-package Rakan;
+package Rakan.Parsers;
+
+import Rakan.RakanException;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;

@@ -1,4 +1,4 @@
-package Rakan;
+package Rakan.Parsers;
 
 import java.time.LocalDateTime;
 

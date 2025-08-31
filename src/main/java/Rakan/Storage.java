@@ -1,5 +1,10 @@
 package Rakan;
 
+import Rakan.Tasks.Deadline;
+import Rakan.Tasks.Event;
+import Rakan.Tasks.Task;
+import Rakan.Tasks.ToDo;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -72,25 +77,25 @@ public class Storage {
 
         if (task instanceof Deadline d) {
             sb.append("D | ")
-                    .append(task.isDone ? "1" : "0").append(" | ")
+                    .append(task.isDone() ? "1" : "0").append(" | ")
                     .append(task.getDescription()).append(" | ")
                     .append(d.getBy().format(DATE_FORMAT));
         } else if (task instanceof Event e) {
             sb.append("E | ")
-                    .append(task.isDone ? "1" : "0").append(" | ")
+                    .append(task.isDone() ? "1" : "0").append(" | ")
                     .append(task.getDescription()).append(" | ")
                     .append(e.getFrom().format(DATE_FORMAT)).append(" | ")
                     .append(e.getTo().format(DATE_FORMAT));
         } else if (task instanceof ToDo) {
             sb.append("T | ")
-                    .append(task.isDone ? "1" : "0").append(" | ")
+                    .append(task.isDone() ? "1" : "0").append(" | ")
                     .append(task.getDescription());
         }
 
         return sb.toString();
     }
 
-    // Convert a line into a Rakan.Task object
+    // Convert a line into a Rakan.Tasks.Task object
     private Task deserialize(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
