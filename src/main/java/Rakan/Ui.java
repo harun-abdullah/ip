@@ -1,3 +1,5 @@
+package Rakan;
+
 import java.util.ArrayList;
 
 public class Ui {
@@ -9,7 +11,7 @@ public class Ui {
     }
 
     public void greet() {
-        entry("Wazzap. I'm Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?");
+        entry("Wazzap. I'm Rakan.Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?");
     }
 
     public void exit() {

@@ -1,3 +1,5 @@
+package Rakan;
+
 import java.time.LocalDateTime;
 
 public class ParsedEvent {

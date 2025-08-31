@@ -1,3 +1,5 @@
+package Rakan;
+
 public class ParsedMark {
     private final int taskIndex;
     private final boolean isMark;

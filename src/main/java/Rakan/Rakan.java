@@ -1,11 +1,8 @@
+package Rakan;
+
 import java.io.IOException;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.time.format.DateTimeParseException;
-import java.util.ArrayList;
 import java.util.Scanner;
-
-import static java.util.Objects.isNull;
 
 public class Rakan {
 

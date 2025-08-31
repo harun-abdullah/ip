@@ -1,3 +1,5 @@
+package Rakan;
+
 import java.io.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -88,7 +90,7 @@ public class Storage {
         return sb.toString();
     }
 
-    // Convert a line into a Task object
+    // Convert a line into a Rakan.Task object
     private Task deserialize(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
