@@ -13,6 +13,11 @@ public class TaskList {
 
     private ArrayList<Task> tasks;
 
+    /**
+     * Constructs tasklist.
+     *
+     * @param tasks list of tasks.
+     */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
@@ -21,14 +26,22 @@ public class TaskList {
         return tasks;
     }
 
-    public void setTasks(ArrayList<Task> tasks) {
-        this.tasks = tasks;
-    }
-
+    /**
+     * Adds a task to the tasklist.
+     *
+     * @param task Task to be added.
+     */
     public void addTask(Task task) {
         tasks.add(task);
     }
 
+    /**
+     * Deletes specified task from the tasklist.
+     *
+     * @param index Index of selected task.
+     * @throws RakanException If index is invalid.
+     * @throws IOException If index is not an integer.
+     */
     public void handleDelete(int index) throws RakanException, IOException {
 
         try {
@@ -42,7 +55,13 @@ public class TaskList {
         }
     }
 
-    public void handleMark(ParsedMark parsed) throws RakanException, IOException
+    /**
+     * Marks or unmarks specified task in the tasklist.
+     *
+     * @param parsed Contains index and whether it will be marked or unmarked.
+     * @throws RakanException If task is already marked as done or not.
+     */
+    public void handleMark(ParsedMark parsed) throws RakanException
     {
         Task task = tasks.get(parsed.getTaskIndex());
 

@@ -10,6 +10,13 @@ public class Parser {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    /**
+     * Returns description to construct ToDo task.
+     *
+     * @param input Input from user to create ToDo.
+     * @return Description to construct ToDo task.
+     * @throws RakanException If input is empty.
+     */
     public static String parseTodo(String input) throws RakanException {
         String description = input.substring(4).trim();
         if (description.isEmpty()) {
@@ -18,6 +25,14 @@ public class Parser {
         return description;
     }
 
+    /**
+     * Returns ParsedDeadline to construct Deadline task.
+     * ParsedDeadline contains description and /by date.
+     *
+     * @param input Input from user to create Deadline.
+     * @return ParsedDeadline object.
+     * @throws RakanException If input does not contain valid description or /by date.
+     */
     public static ParsedDeadline parseDeadline(String input) throws RakanException {
         String[] parts = input.substring(8).split("/by", 2);
         if (parts.length < 2) {
@@ -35,6 +50,14 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns ParsedEvent to construct Event task.
+     * ParsedEvent contains description, /from and /to dates.
+     *
+     * @param input Input from user to create Event.
+     * @return ParsedEvent object.
+     * @throws RakanException If input does not contain valid dates.
+     */
     public static ParsedEvent parseEvent(String input) throws RakanException {
         String[] parts = input.substring(5).split("/from", 2);
         if (parts.length < 2) {
@@ -62,6 +85,13 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns integer task index for deletion.
+     *
+     * @param input Input from user to delete task.
+     * @return Integer index of task to delete.
+     * @throws RakanException If task number is not provided.
+     */
     public static int parseDelete(String input) throws RakanException {
         String[] parts = input.split("\\s+", 2);
 
@@ -73,6 +103,15 @@ public class Parser {
         return taskNumber - 1;
     }
 
+    /**
+     * Return ParsedMark object to mark/unmark tasks.
+     *
+     * @param input Input from user to mark/unmark tasks.
+     * @param isMark Boolean to decide to mark/unmark task.
+     * @param taskListSize Size of current tasklist.
+     * @return ParsedMark object.
+     * @throws RakanException If task number is invalid or absent.
+     */
     public static ParsedMark parseMark(String input, boolean isMark, int taskListSize) throws RakanException {
         String keyword = isMark ? "mark" : "unmark";
         String[] parts = input.split("\\s+", 2);

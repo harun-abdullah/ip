@@ -7,20 +7,38 @@ import java.util.ArrayList;
 
 public class Ui {
 
+    /**
+     * Prints a message out to the terminal.
+     * The message has borders above and below.
+     *
+     * @param message Message to be printed out.
+     */
     public void entry(String message) {
         System.out.println("---------------------------------------------------------------------------------");
         System.out.println(message);
         System.out.println("---------------------------------------------------------------------------------");
     }
 
+    /**
+     * Greeting message when starting Rakan.
+     */
     public void greet() {
         entry("Wazzap. I'm Rakan.Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?");
     }
 
+    /**
+     * Exit message when closing Rakan.
+     */
     public void exit() {
         entry("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40");
     }
 
+    /**
+     * Displays list of tasks with indexes.
+     *
+     * @param taskList List of tasks to be displayed.
+     * @throws RakanException If list is empty.
+     */
     public void showList(ArrayList<Task> taskList) throws RakanException {
         if (taskList.isEmpty()) {
             throw new RakanException("Nothing here yet!");

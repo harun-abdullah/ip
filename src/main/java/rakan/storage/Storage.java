@@ -14,6 +14,12 @@ public class Storage {
     private String filePath;
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    /**
+     * Constructs Storage object with file path.
+     * File path dictates where to save to and load from.
+     *
+     * @param filePath File path specified for storage.
+     */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
@@ -31,6 +37,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Saves tasks currently in tasklist to the .txt file.
+     *
+     * @param tasks Tasklist to be saved.
+     */
     public void saveTasks(ArrayList<Task> tasks) {
 
         try {
@@ -45,6 +56,11 @@ public class Storage {
         }
     }
 
+    /**
+     * Returns tasklist from .txt file.
+     *
+     * @return Tasklist as an ArrayList<Task>.
+     */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
         File file = new File(filePath);
