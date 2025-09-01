@@ -60,6 +60,12 @@ public class TaskList {
 
     }
 
+    /**
+     * Returns an ArrayList<Task> that match keyword.
+     *
+     * @param keyword String to use for search.
+     * @return ArrayList of Tasks.
+     */
     public ArrayList<Task> find (String keyword) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
