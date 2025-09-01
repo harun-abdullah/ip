@@ -14,6 +14,7 @@ import rakan.ui.Ui;
 
 import java.io.IOException;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Rakan {
@@ -90,6 +91,11 @@ public class Rakan {
                     storage.saveTasks(taskList.getTasks());
                     ui.entry("Got it. I've added this task:\n  " + event
                             + "\nNow you have " + taskList.getTasks().size() + " tasks in the list.");
+
+                } else if (userInput.toLowerCase().startsWith("find")) {
+                    String keyword = Parser.parseFind(userInput);
+                    ArrayList<Task> results = taskList.find(keyword);
+                    ui.showFindResults(results);
                 } else {
                     throw new RakanException("Sorry, not sure what that means");
                 }
