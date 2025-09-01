@@ -7,7 +7,6 @@ public class DeadLine extends Task {
 
     protected LocalDateTime by;
 
-    public DeadLine(String description, LocalDateTime by) {
     /**
      * Constructs Deadline task.
      *
