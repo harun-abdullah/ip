@@ -37,4 +37,26 @@ public class Ui {
         }
     }
 
+    /**
+     * Display results of find() from TaskList.
+     *
+     * @param taskList List of Tasks to be displayed.
+     * @throws RakanException If no results are found after searching.
+     */
+    public void showFindResults(ArrayList<Task> taskList) throws RakanException {
+        if (taskList.isEmpty()) {
+            throw new RakanException("No results found!");
+        } else {
+            StringBuilder list = new StringBuilder("Here's the matching tasks, enjoy:");
+            final int[] index = {1}; // use array to mutate inside lambda
+
+            taskList.forEach(task -> {
+                list.append("\n").append(index[0]).append(". ").append(task);
+                index[0]++;
+            });
+
+            entry(list.toString());
+        }
+    }
+
 }
