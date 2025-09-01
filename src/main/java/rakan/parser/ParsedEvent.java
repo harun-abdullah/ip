@@ -7,6 +7,13 @@ public class ParsedEvent {
     private final LocalDateTime from;
     private final LocalDateTime to;
 
+    /**
+     * Constructs ParsedEvent object.
+     *
+     * @param description Event description.
+     * @param from Starting date and time of event.
+     * @param to Ending date and time of event.
+     */
     public ParsedEvent(String description, LocalDateTime from, LocalDateTime to) {
         this.description = description;
         this.from = from;
