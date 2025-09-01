@@ -5,7 +5,7 @@ import rakan.parser.ParsedEvent;
 import rakan.parser.ParsedMark;
 import rakan.parser.Parser;
 import rakan.storage.Storage;
-import rakan.task.Deadline;
+import rakan.task.DeadLine;
 import rakan.task.Event;
 import rakan.task.Task;
 import rakan.task.ToDo;
@@ -74,7 +74,7 @@ public class Rakan {
                     ParsedDeadline parsedDeadline = Parser.parseDeadline(userInput);
                     String description = parsedDeadline.getDescription();
                     LocalDateTime by = parsedDeadline.getBy();
-                    Deadline deadline = new Deadline(description, by);
+                    DeadLine deadline = new DeadLine(description, by);
                     taskList.addTask(deadline);
                     storage.saveTasks(taskList.getTasks());
                     ui.entry("Got it. I've added this task:\n  "

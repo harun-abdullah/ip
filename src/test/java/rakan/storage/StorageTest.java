@@ -2,7 +2,8 @@ package rakan.storage;
 
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
-import rakan.task.Deadline;
+
+import rakan.task.DeadLine;
 import rakan.task.Event;
 import rakan.task.Task;
 import rakan.task.ToDo;
@@ -45,7 +46,7 @@ class StorageTest {
 
         ArrayList<Task> tasksToSave = new ArrayList<>();
         LocalDateTime by = LocalDateTime.of(2025, 9, 1, 23, 59);
-        Deadline deadline = new Deadline("submit report", by);
+        DeadLine deadline = new DeadLine("submit report", by);
         tasksToSave.add(deadline);
 
         storage.saveTasks(tasksToSave);
@@ -53,9 +54,9 @@ class StorageTest {
 
         assertEquals(1, loadedTasks.size());
         Task loaded = loadedTasks.get(0);
-        assertInstanceOf(Deadline.class, loaded);
+        assertInstanceOf(DeadLine.class, loaded);
         assertEquals("submit report", loaded.getDescription());
-        assertEquals(by, ((Deadline) loaded).getBy());
+        assertEquals(by, ((DeadLine) loaded).getBy());
         assertFalse(loaded.isDone());
     }
 

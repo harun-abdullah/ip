@@ -1,6 +1,6 @@
 package rakan.storage;
 
-import rakan.task.Deadline;
+import rakan.task.DeadLine;
 import rakan.task.Event;
 import rakan.task.Task;
 import rakan.task.ToDo;
@@ -75,7 +75,7 @@ public class Storage {
     private String serialize(Task task) {
         StringBuilder sb = new StringBuilder();
 
-        if (task instanceof Deadline d) {
+        if (task instanceof DeadLine d) {
             sb.append("D | ")
                     .append(task.isDone() ? "1" : "0").append(" | ")
                     .append(task.getDescription()).append(" | ")
@@ -108,7 +108,7 @@ public class Storage {
         switch (type) {
             case "D": {
                 LocalDateTime by = LocalDateTime.parse(parts[3], formatter);
-                task = new Deadline(description, by);
+                task = new DeadLine(description, by);
                 break;
             }
             case "E": {
