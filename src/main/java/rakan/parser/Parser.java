@@ -95,5 +95,20 @@ public class Parser {
         }
     }
 
+    /**
+     * Returns a string to be used in find() in TaskList.
+     *
+     * @param input Input from user.
+     * @return String to be used as keyword.
+     * @throws RakanException If no keyword is given.
+     */
+    public static String parseFind(String input) throws RakanException {
+        String keyword = input.substring(4).trim();
+        if (keyword.isEmpty()) {
+            throw new RakanException("You gotta give me something to find, man.");
+        }
+        return keyword;
+    }
+
 }
 
