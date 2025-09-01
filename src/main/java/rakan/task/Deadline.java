@@ -8,10 +8,10 @@ public class Deadline extends Task {
     protected LocalDateTime by;
 
     /**
-     * Constructs Deadline task
+     * Constructs Deadline task.
      *
-     * @param description Task description
-     * @param by Date to complete task by
+     * @param description Task description.
+     * @param by Date to complete task by.
      */
     public Deadline(String description, LocalDateTime by) {
         super(description);
@@ -23,9 +23,9 @@ public class Deadline extends Task {
     }
 
     /**
-     * Return task type, description, and /by date
+     * Return task type, description, and /by date.
      *
-     * @return Task type, description, and /by date
+     * @return Task type, description, and /by date.
      */
     @Override
     public String toString() {

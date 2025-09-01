@@ -15,7 +15,7 @@ public class Parser {
      *
      * @param input Input from user to create ToDo.
      * @return Description to construct ToDo task.
-     * @throws RakanException If input is empty
+     * @throws RakanException If input is empty.
      */
     public static String parseTodo(String input) throws RakanException {
         String description = input.substring(4).trim();
@@ -54,9 +54,9 @@ public class Parser {
      * Returns ParsedEvent to construct Event task.
      * ParsedEvent contains description, /from and /to dates.
      *
-     * @param input Input from user to create Event
-     * @return ParsedEvent object
-     * @throws RakanException If input does not contain valid dates
+     * @param input Input from user to create Event.
+     * @return ParsedEvent object.
+     * @throws RakanException If input does not contain valid dates.
      */
     public static ParsedEvent parseEvent(String input) throws RakanException {
         String[] parts = input.substring(5).split("/from", 2);

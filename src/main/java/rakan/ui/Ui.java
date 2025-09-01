@@ -11,7 +11,7 @@ public class Ui {
      * Prints a message out to the terminal.
      * The message has borders above and below.
      *
-     * @param message Message to be printed out
+     * @param message Message to be printed out.
      */
     public void entry(String message) {
         System.out.println("---------------------------------------------------------------------------------");
