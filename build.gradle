@@ -34,6 +34,7 @@ application {
 shadowJar {
     archiveBaseName = "rakan"
     archiveClassifier = null
+    archiveFileName = "rakan.jar"
 }
 
 run{
