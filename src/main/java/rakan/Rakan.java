@@ -22,12 +22,21 @@ public class Rakan {
     private TaskList taskList;
     private Storage storage;
 
+    /**
+     * Constructs Rakan instance.
+     *
+     * @param filePath File path for storage.
+     */
     public Rakan(String filePath) {
         ui = new Ui();
         storage = new Storage(filePath);
         taskList = new TaskList(storage.loadTasks());
     }
 
+    /**
+     * Runs the main logic of the program.
+     * The logic is split depending on the user input.
+     */
     public void run() {
         ui.greet();
         Scanner scanner = new Scanner(System.in);
