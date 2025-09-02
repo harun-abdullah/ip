@@ -1,11 +1,15 @@
 package rakan.parser;
 
-import rakan.RakanException;
-
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import rakan.RakanException;
+
+
+/**
+ * Parses and validates the user input.
+ */
 public class Parser {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");

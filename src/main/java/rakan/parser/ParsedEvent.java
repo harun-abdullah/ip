@@ -2,6 +2,9 @@ package rakan.parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to contain constructor parameters for Event.
+ */
 public class ParsedEvent {
     private final String description;
     private final LocalDateTime from;

@@ -1,5 +1,10 @@
 package rakan;
 
+import java.io.IOException;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Scanner;
+
 import rakan.parser.ParsedDeadline;
 import rakan.parser.ParsedEvent;
 import rakan.parser.ParsedMark;
@@ -11,11 +16,6 @@ import rakan.task.Task;
 import rakan.task.ToDo;
 import rakan.tasklist.TaskList;
 import rakan.ui.Ui;
-
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
 
 public class Rakan {
 

@@ -1,5 +1,8 @@
 package rakan.parser;
 
+/**
+ * Class to contain constructor parameters for handleMark.
+ */
 public class ParsedMark {
     private final int taskIndex;
     private final boolean isMark;

@@ -2,6 +2,9 @@ package rakan.parser;
 
 import java.time.LocalDateTime;
 
+/**
+ * Class to contain constructor parameters for DeadLine.
+ */
 public class ParsedDeadline {
     private final String description;
     private final LocalDateTime by;
