@@ -118,4 +118,11 @@ public class Rakan {
     public static void main(String[] args) {
         new Rakan("./data/rakan.txt").run();
     }
+
+    /**
+     * Generates a response for the user's chat message.
+     */
+    public String getResponse(String input) {
+        return "Rakan heard: " + input;
+    }
 }

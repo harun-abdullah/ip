@@ -21,6 +21,7 @@ public class Main extends Application {
 
     private Image userImage = new Image(this.getClass().getResourceAsStream("/images/Cat1.jpg"));
     private Image rakanImage = new Image(this.getClass().getResourceAsStream("/images/Cat2.jpg"));
+    private Rakan rakan = new Rakan("./data/rakan.txt");
 
     @Override
     public void start(Stage stage) {
@@ -91,8 +92,14 @@ public class Main extends Application {
      * the dialog container. Clears the user input after processing.
      */
     private void handleUserInput() {
-        dialogContainer.getChildren().addAll(new DialogBox(userInput.getText(), userImage));
+        String userText = userInput.getText();
+        String dukeText = rakan.getResponse(userInput.getText());
+        dialogContainer.getChildren().addAll(
+                new DialogBox(userText, userImage),
+                new DialogBox(dukeText, rakanImage)
+        );
         userInput.clear();
     }
+
 }
 
