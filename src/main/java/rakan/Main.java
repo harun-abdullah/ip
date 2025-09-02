@@ -93,10 +93,10 @@ public class Main extends Application {
      */
     private void handleUserInput() {
         String userText = userInput.getText();
-        String dukeText = rakan.getResponse(userInput.getText());
+        String rakanText = rakan.getResponse(userInput.getText());
         dialogContainer.getChildren().addAll(
-                new DialogBox(userText, userImage),
-                new DialogBox(dukeText, rakanImage)
+                DialogBox.getUserDialog(userText, userImage),
+                DialogBox.getRakanDialog(rakanText, rakanImage)
         );
         userInput.clear();
     }
