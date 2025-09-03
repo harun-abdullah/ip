@@ -22,15 +22,15 @@ public class Ui {
     /**
      * Greeting message when starting Rakan.
      */
-    public void greet() {
-        entry("Wazzap. I'm Rakan.Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?");
+    public String greet() {
+        return "Wazzap. I'm Rakan.Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?";
     }
 
     /**
      * Exit message when closing Rakan.
      */
-    public void exit() {
-        entry("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40");
+    public String exit() {
+        return "Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40";
     }
 
     /**
@@ -39,7 +39,7 @@ public class Ui {
      * @param taskList List of tasks to be displayed.
      * @throws RakanException If list is empty.
      */
-    public void showList(ArrayList<Task> taskList) throws RakanException {
+    public String showList(ArrayList<Task> taskList) throws RakanException {
         if (taskList.isEmpty()) {
             throw new RakanException("Nothing here yet!");
         } else {
@@ -51,7 +51,7 @@ public class Ui {
                 index[0]++;
             });
 
-            entry(list.toString());
+            return list.toString();
         }
     }
 
@@ -61,7 +61,7 @@ public class Ui {
      * @param taskList List of Tasks to be displayed.
      * @throws RakanException If no results are found after searching.
      */
-    public void showFindResults(ArrayList<Task> taskList) throws RakanException {
+    public String showFindResults(ArrayList<Task> taskList) throws RakanException {
         if (taskList.isEmpty()) {
             throw new RakanException("No results found!");
         } else {
@@ -73,7 +73,7 @@ public class Ui {
                 index[0]++;
             });
 
-            entry(list.toString());
+            return list.toString();
         }
     }
 
