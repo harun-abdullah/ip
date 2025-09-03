@@ -23,7 +23,7 @@ public class Ui {
      * Greeting message when starting Rakan.
      */
     public String greet() {
-        return "Wazzap. I'm Rakan.Rakan \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?";
+        return "Wazzap. I'm Rakan. \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?";
     }
 
     /**
