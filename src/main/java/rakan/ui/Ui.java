@@ -20,14 +20,18 @@ public class Ui {
     }
 
     /**
-     * Greeting message when starting Rakan.
+     * Returns greeting message when starting Rakan.
+     *
+     * @return Greeting message.
      */
     public String greet() {
         return "Wazzap. I'm Rakan. \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?";
     }
 
     /**
-     * Exit message when closing Rakan.
+     * Returns exit message when closing Rakan.
+     *
+     * @return Exit message.
      */
     public String exit() {
         return "Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40";
