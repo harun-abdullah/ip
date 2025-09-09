@@ -1,4 +1,4 @@
-package rakan;
+package rakan.gui;
 
 import java.io.IOException;
 import java.util.Collections;

@@ -1,4 +1,4 @@
-package rakan;
+package rakan.main;
 
 import java.io.IOException;
 
@@ -7,6 +7,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import rakan.Rakan;
+import rakan.gui.MainWindow;
 
 public class Main extends Application {
 

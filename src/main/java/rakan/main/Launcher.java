@@ -1,4 +1,4 @@
-package rakan;
+package rakan.main;
 
 import javafx.application.Application;
 

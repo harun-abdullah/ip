@@ -1,4 +1,4 @@
-package rakan;
+package rakan.gui;
 
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
@@ -11,6 +11,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import rakan.Rakan;
 
 /**
  * Controller for the main GUI.

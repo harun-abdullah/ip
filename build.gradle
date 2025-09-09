@@ -48,7 +48,7 @@ test {
 }
 
 application {
-    mainClass.set("rakan.Launcher")
+    mainClass.set("rakan.main.Launcher")
 }
 
 shadowJar {
