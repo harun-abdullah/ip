@@ -46,16 +46,13 @@ public class Parser {
         case "list":
             return new ListCommand();
         case "mark":
-            // validateTaskNumber(input, taskCount);
             return new MarkCommand(input);
         case "unmark":
-            // validateTaskNumber(input, taskCount);
             return new UnmarkCommand(input);
         case "delete":
-            // validateTaskNumber(input, taskCount);
             return new DeleteCommand(input);
         case "find":
-            // validateFindInput(input);
+            validateFindInput(input);
             return new FindCommand(input);
         case "bye":
             return new ExitCommand();
@@ -108,20 +105,16 @@ public class Parser {
         }
     }
 
-    private static void validateTaskNumber(String input, int maxTasks) throws RakanException {
-        String[] parts = input.split(" ");
-        if (parts.length != 2) {
-            throw new RakanException("OOPS!!! Please provide a task number.");
-        }
-
+    public static Integer validateTaskNumber(String input, int maxTasks) throws RakanException {
         try {
-            int taskNum = Integer.parseInt(parts[1]);
+            int taskNum = Integer.parseInt(input);
             if (taskNum < 1 || taskNum > maxTasks) {
-                throw new RakanException("OOPS!!! Task number " + taskNum
+                throw new RakanException("Breh. Task number " + taskNum
                         + " is out of range. You have " + maxTasks + " tasks.");
             }
+            return taskNum;
         } catch (NumberFormatException e) {
-            throw new RakanException("OOPS!!! Task number must be a valid number.");
+            throw new RakanException("GIVE ME A VALID INTEGER.");
         }
     }
 

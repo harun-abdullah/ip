@@ -2,6 +2,7 @@ package rakan.command;
 
 import rakan.RakanException;
 import rakan.parser.ParsedMark;
+import rakan.parser.Parser;
 import rakan.storage.Storage;
 import rakan.tasklist.TaskList;
 import rakan.ui.Ui;
@@ -15,8 +16,8 @@ public class UnmarkCommand extends Command {
 
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException {
-        String[] parts = input.split(" ");
-        int taskNum = Integer.parseInt(parts[1]) - 1;
+        String[] split = input.split(" ");
+        int taskNum = Parser.validateTaskNumber(split[1], tasks.getTasks().size()) - 1;
         ParsedMark parsedMark = new ParsedMark(taskNum, false);
         tasks.handleMark(parsedMark);
         ui.showMessages(
