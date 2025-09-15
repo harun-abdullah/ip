@@ -52,10 +52,10 @@ public class TaskList {
      * @param parsed Contains index and whether it will be marked or unmarked.
      * @throws RakanException If task is already marked as done or not.
      */
-    public void handleMark(ParsedMark parsed) throws RakanException
-    {
+    public void handleMark(ParsedMark parsed) throws RakanException {
+        assert parsed.getTaskIndex() >= 0 && parsed.getTaskIndex() < tasks.size() :
+                "Mark index out of bounds: " + parsed.getTaskIndex() + ", size: " + tasks.size();
         Task task = tasks.get(parsed.getTaskIndex());
-
         if (parsed.isMark()) {
             if (task.isDone()) {
                 throw new RakanException("This task is already marked as done!");
@@ -77,6 +77,7 @@ public class TaskList {
      * @return ArrayList of Tasks.
      */
     public ArrayList<Task> find(String keyword) {
+        assert keyword != null : "Find keyword cannot be null";
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().contains(keyword)) {
