@@ -1,7 +1,6 @@
 package rakan.command;
 
 import java.util.ArrayList;
-import java.util.regex.Pattern;
 
 import rakan.RakanException;
 import rakan.storage.Storage;

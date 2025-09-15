@@ -4,10 +4,7 @@ import rakan.RakanException;
 import rakan.parser.ParsedMark;
 import rakan.task.Task;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import static java.util.Objects.isNull;
 
 public class TaskList {
 
@@ -32,6 +29,7 @@ public class TaskList {
      * @param task Task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add null task to tasklist";
         tasks.add(task);
     }
 
@@ -39,20 +37,10 @@ public class TaskList {
      * Deletes specified task from the tasklist.
      *
      * @param index Index of selected task.
-     * @throws RakanException If index is invalid.
-     * @throws IOException If index is not an integer.
      */
-    public void handleDelete(int index) throws RakanException, IOException {
-
-        try {
-            // check if number provided is valid
-            if (index < 0 || index >= tasks.size() || isNull(tasks.get(index))) {
-                throw new RakanException("No such task: " + (index + 1));
-            }
-            tasks.remove(index);
-        } catch (NumberFormatException e) {
-            throw new RakanException("Invalid task number: " + (index + 1));
-        }
+    public void handleDelete(int index) {
+        assert index >= 0 && index < tasks.size() : "Delete index is out of bounds: " + index + ", size: " + tasks.size();
+        tasks.remove(index);
     }
 
     /**
@@ -61,10 +49,10 @@ public class TaskList {
      * @param parsed Contains index and whether it will be marked or unmarked.
      * @throws RakanException If task is already marked as done or not.
      */
-    public void handleMark(ParsedMark parsed) throws RakanException
-    {
+    public void handleMark(ParsedMark parsed) throws RakanException {
+        assert parsed.getTaskIndex() >= 0 && parsed.getTaskIndex() < tasks.size() :
+                "Mark index out of bounds: " + parsed.getTaskIndex() + ", size: " + tasks.size();
         Task task = tasks.get(parsed.getTaskIndex());
-
         if (parsed.isMark()) {
             if (task.isDone()) {
                 throw new RakanException("This task is already marked as done!");
@@ -85,7 +73,8 @@ public class TaskList {
      * @param keyword String to use for search.
      * @return ArrayList of Tasks.
      */
-    public ArrayList<Task> find (String keyword) {
+    public ArrayList<Task> find(String keyword) {
+        assert keyword != null : "Find keyword cannot be null";
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().contains(keyword)) {

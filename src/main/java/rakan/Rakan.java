@@ -1,20 +1,8 @@
 package rakan;
 
-import java.io.IOException;
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.Scanner;
-
 import rakan.command.Command;
-import rakan.parser.ParsedDeadline;
-import rakan.parser.ParsedEvent;
-import rakan.parser.ParsedMark;
 import rakan.parser.Parser;
 import rakan.storage.Storage;
-import rakan.task.DeadLine;
-import rakan.task.Event;
-import rakan.task.Task;
-import rakan.task.ToDo;
 import rakan.tasklist.TaskList;
 import rakan.ui.Ui;
 
@@ -44,6 +32,9 @@ public class Rakan {
      * @return String response.
      */
     public String getResponse(String userInput) {
+        assert ui != null : "UI cannot be null";
+        assert storage != null : "Storage cannot be null";
+        assert taskList != null : "Tasklist cannot be null";
         try {
             ui.clearMessages();
             Command c = Parser.parse(userInput);
