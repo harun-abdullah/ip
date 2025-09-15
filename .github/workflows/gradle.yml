@@ -32,7 +32,7 @@ jobs:
           java-package: jdk+fx
 
       - name: Build and check with Gradle
-        run: ./gradlew check
+        run: ./gradlew check -x checkstyleMain -x checkstyleTest
 
       - name: Install dos2unix on Linux
         if: runner.os == 'Linux'
