@@ -4,7 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 
+import rakan.Rakan;
 import rakan.RakanException;
+import rakan.command.Command;
+import rakan.command.DeadlineCommand;
+import rakan.command.DeleteCommand;
+import rakan.command.ExitCommand;
+import rakan.command.FindCommand;
+import rakan.command.ListCommand;
+import rakan.command.MarkCommand;
+import rakan.command.UnmarkCommand;
+import rakan.command.TodoCommand;
+import rakan.command.EventCommand;
 
 
 /**
@@ -14,6 +25,120 @@ public class Parser {
 
     private static final DateTimeFormatter formatter = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
+    public static Command parse(String input) throws RakanException {
+        if (input == null || input.trim().isEmpty()) {
+            throw new RakanException("Did u fr send an empty message");
+        }
+
+        // get the first word in the input message for the command keyword
+        String command = input.toLowerCase().trim().split(" ")[0];
+
+        switch (command) {
+        case "todo":
+            validateTodoInput(input);
+            return new TodoCommand(input);
+        case "deadline":
+            validateDeadlineInput(input);
+            return new DeadlineCommand(input);
+        case "event":
+            validateEventInput(input);
+            return new EventCommand(input);
+        case "list":
+            return new ListCommand();
+        case "mark":
+            // validateTaskNumber(input, taskCount);
+            return new MarkCommand(input);
+        case "unmark":
+            // validateTaskNumber(input, taskCount);
+            return new UnmarkCommand(input);
+        case "delete":
+            // validateTaskNumber(input, taskCount);
+            return new DeleteCommand(input);
+        case "find":
+            // validateFindInput(input);
+            return new FindCommand(input);
+        case "bye":
+            return new ExitCommand();
+        default:
+            throw new RakanException("Please type in a valid command vro");
+        }
+    }
+
+    private static void validateTodoInput(String input) throws RakanException {
+        String trimmed = input.trim().toLowerCase();
+        if (trimmed.equals("todo") || trimmed.matches("todo\\s*")) {
+            throw new RakanException("Bro really forgot the description of his todo task.");
+        }
+    }
+
+    private static void validateDeadlineInput(String input) throws RakanException {
+        String trimmed = input.trim().toLowerCase();
+        if (trimmed.equals("deadline") || trimmed.matches("deadline\\s*")) {
+            throw new RakanException("Oi, oi, oi. Baaaka. The description of a deadline cannot be empty.");
+        }
+
+        if (!input.toLowerCase().contains(" /by ")) {
+            throw new RakanException("OOPS!!! Deadline format should be: deadline <description> /by <time>");
+        }
+
+        String[] parts = input.split(" /by ");
+        if (parts.length != 2 || parts[1].trim().isEmpty()) {
+            throw new RakanException("OOPS!!! The deadline time cannot be empty.");
+        }
+    }
+
+    private static void validateEventInput(String input) throws RakanException {
+        String trimmed = input.trim().toLowerCase();
+        if (trimmed.equals("event") || trimmed.matches("event\\s*")) {
+            throw new RakanException("OOPS!!! The description of an event cannot be empty.");
+        }
+
+        if (!input.toLowerCase().contains(" /from ") || !input.toLowerCase().contains(" /to ")) {
+            throw new RakanException("OOPS!!! Event format should be: event <description> /from <start> /to <end>");
+        }
+
+        String[] fromSplit = input.split(" /from ");
+        if (fromSplit.length != 2) {
+            throw new RakanException("OOPS!!! Event format should be: event <description> /from <start> /to <end>");
+        }
+
+        String[] toSplit = fromSplit[1].split(" /to ");
+        if (toSplit.length != 2 || toSplit[0].trim().isEmpty() || toSplit[1].trim().isEmpty()) {
+            throw new RakanException("OOPS!!! Event times cannot be empty.");
+        }
+    }
+
+    private static void validateTaskNumber(String input, int maxTasks) throws RakanException {
+        String[] parts = input.split(" ");
+        if (parts.length != 2) {
+            throw new RakanException("OOPS!!! Please provide a task number.");
+        }
+
+        try {
+            int taskNum = Integer.parseInt(parts[1]);
+            if (taskNum < 1 || taskNum > maxTasks) {
+                throw new RakanException("OOPS!!! Task number " + taskNum
+                        + " is out of range. You have " + maxTasks + " tasks.");
+            }
+        } catch (NumberFormatException e) {
+            throw new RakanException("OOPS!!! Task number must be a valid number.");
+        }
+    }
+
+    private static void validateFindInput(String input) throws RakanException {
+        String trimmed = input.trim().toLowerCase();
+        if (trimmed.equals("find") || trimmed.matches("find\\s*")) {
+            throw new RakanException("Woii, Give me something to search for.");
+        }
+    }
+
+    public static LocalDateTime formatStringToDate(String input) throws RakanException {
+        try {
+            return LocalDateTime.parse(input, formatter);
+        } catch (DateTimeParseException e) {
+            throw new RakanException("I don't understand that date format. Try d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+        }
+    }
     /**
      * Returns description to construct ToDo task.
      *
