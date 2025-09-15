@@ -39,7 +39,6 @@ public class MainWindow extends AnchorPane {
     /** Injects the Rakan instance */
     public void setRakan(Rakan r) {
         rakan = r;
-
         String greeting = rakan.getUi().greet();
         dialogContainer.getChildren().add(
                 DialogBox.getRakanDialog(greeting, rakanImage)
@@ -60,7 +59,7 @@ public class MainWindow extends AnchorPane {
         );
         userInput.clear();
 
-        if (input.trim().equalsIgnoreCase("bye")) {
+        if (rakan.shouldExit()) {
             // Delay a bit so the user can see the exit message
             PauseTransition delay = new PauseTransition(Duration.seconds(1.5));
             delay.setOnFinished(event -> {
