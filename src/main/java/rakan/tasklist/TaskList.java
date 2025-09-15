@@ -4,10 +4,7 @@ import rakan.RakanException;
 import rakan.parser.ParsedMark;
 import rakan.task.Task;
 
-import java.io.IOException;
 import java.util.ArrayList;
-
-import static java.util.Objects.isNull;
 
 public class TaskList {
 

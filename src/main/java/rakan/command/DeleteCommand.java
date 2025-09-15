@@ -1,7 +1,5 @@
 package rakan.command;
 
-import java.io.IOException;
-
 import rakan.RakanException;
 import rakan.parser.Parser;
 import rakan.storage.Storage;
