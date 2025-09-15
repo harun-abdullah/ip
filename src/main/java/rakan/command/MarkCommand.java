@@ -21,12 +21,12 @@ public class MarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException {
         String[] split = input.split(" ");
-        int taskNum = Integer.parseInt(split[1]);
+        int taskNum = Integer.parseInt(split[1]) - 1;
         ParsedMark parsedMark = new ParsedMark(taskNum, true);
         tasks.handleMark(parsedMark);
         ui.showMessages(
                 " Nice! I've marked this task as done:",
-                "   " + tasks.getTasks().get(taskNum - 1)
+                "   " + tasks.getTasks().get(taskNum)
         );
         storage.saveTasks(tasks.getTasks());
     }

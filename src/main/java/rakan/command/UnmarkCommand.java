@@ -16,12 +16,12 @@ public class UnmarkCommand extends Command {
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException {
         String[] parts = input.split(" ");
-        int taskNum = Integer.parseInt(parts[1]);
+        int taskNum = Integer.parseInt(parts[1]) - 1;
         ParsedMark parsedMark = new ParsedMark(taskNum, false);
         tasks.handleMark(parsedMark);
         ui.showMessages(
-                " Okay, I've marked this task as done:",
-                "   " + tasks.getTasks().get(taskNum - 1)
+                " Okay, I've marked this task as undone:",
+                "   " + tasks.getTasks().get(taskNum)
         );
         storage.saveTasks(tasks.getTasks());
     }
