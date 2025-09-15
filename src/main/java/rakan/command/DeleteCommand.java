@@ -1,0 +1,32 @@
+package rakan.command;
+
+import java.io.IOException;
+
+import rakan.RakanException;
+import rakan.storage.Storage;
+import rakan.task.Task;
+import rakan.tasklist.TaskList;
+import rakan.ui.Ui;
+
+public class DeleteCommand extends Command {
+    private String input;
+
+    public DeleteCommand(String input) {
+        this.input = input;
+    }
+
+    @Override
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException, IOException {
+
+        String[] deleteParts = input.split(" ");
+        int index = Integer.parseInt(deleteParts[1]);
+        Task task = tasks.getTasks().get(index);
+        tasks.handleDelete(index);
+        ui.showMessages(
+                " Noted. I've removed this task:",
+                "   " + task,
+                " Now you have " + tasks.getTasks().size() + " tasks in the list."
+        );
+        storage.saveTasks(tasks.getTasks());
+    }
+}
