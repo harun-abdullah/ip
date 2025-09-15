@@ -44,10 +44,13 @@ public class Storage {
      */
     public void saveTasks(ArrayList<Task> tasks) {
 
+        assert tasks != null : "Task list cannot be null";
+
         try {
             ensureFileExists();
             try (FileWriter writer = new FileWriter(filePath)) {
                 for (Task task : tasks) {
+                    assert task != null : "Individual tasks cannot be null while saving";
                     writer.write(serialize(task) + System.lineSeparator());
                 }
             }
