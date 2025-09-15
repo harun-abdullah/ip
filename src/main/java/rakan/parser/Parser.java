@@ -32,6 +32,7 @@ public class Parser {
 
         // get the first word in the input message for the command keyword
         String command = input.toLowerCase().trim().split(" ")[0];
+        command = checkCommandAlias(command);
 
         switch (command) {
         case "todo":
@@ -130,6 +131,31 @@ public class Parser {
             return LocalDateTime.parse(input, formatter);
         } catch (DateTimeParseException e) {
             throw new RakanException("I don't understand that date format. Try d/M/yyyy HHmm (e.g., 2/12/2019 1800).");
+        }
+    }
+
+    private static String checkCommandAlias(String input) {
+        switch (input) {
+        case "t":
+            return "todo";
+        case "d":
+            return "deadline";
+        case "e":
+            return "event";
+        case "l":
+            return "list";
+        case "m":
+            return "mark";
+        case "u":
+            return "unmark";
+        case "del":
+            return "delete";
+        case "f":
+            return "find";
+        case "b":
+            return "bye";
+        default:
+            return input;
         }
     }
 }
