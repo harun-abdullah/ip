@@ -1,8 +1,10 @@
 package rakan.command;
 
+import java.time.LocalDateTime;
 import java.time.format.DateTimeParseException;
 
 import rakan.RakanException;
+import rakan.parser.Parser;
 import rakan.storage.Storage;
 import rakan.task.DeadLine;
 import rakan.task.Task;
@@ -21,14 +23,14 @@ public class DeadlineCommand extends Command {
         String[] deadlineParts = input.split(" /by ");
         String[] commandParts = deadlineParts[0].split(" ", 2);
         String deadlineDesc = commandParts.length > 1 ? commandParts[1] : "";
-        String by = deadlineParts[1];
+        LocalDateTime by = Parser.formatStringToDate(deadlineParts[1]);
         try {
             Task deadline = new DeadLine(deadlineDesc, by);
             tasks.addTask(deadline);
             ui.showAddedTask(deadline, tasks);
             storage.saveTasks(tasks.getTasks());
-        } catch (DateTimeParseException e) {
-
+        } catch (Exception e) {
+            throw new RakanException("Huh, something went wrong");
         }
     }
 }
