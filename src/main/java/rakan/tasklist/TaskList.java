@@ -32,6 +32,7 @@ public class TaskList {
      * @param task Task to be added.
      */
     public void addTask(Task task) {
+        assert task != null : "Cannot add null task to tasklist";
         tasks.add(task);
     }
 
@@ -39,20 +40,10 @@ public class TaskList {
      * Deletes specified task from the tasklist.
      *
      * @param index Index of selected task.
-     * @throws RakanException If index is invalid.
-     * @throws IOException If index is not an integer.
      */
-    public void handleDelete(int index) throws RakanException, IOException {
-
-        try {
-            // check if number provided is valid
-            if (index < 0 || index >= tasks.size() || isNull(tasks.get(index))) {
-                throw new RakanException("No such task: " + (index + 1));
-            }
-            tasks.remove(index);
-        } catch (NumberFormatException e) {
-            throw new RakanException("Invalid task number: " + (index + 1));
-        }
+    public void handleDelete(int index) {
+        assert index >= 0 && index < tasks.size() : "Delete index is out of bounds: " + index + ", size: " + tasks.size();
+        tasks.remove(index);
     }
 
     /**
@@ -85,7 +76,7 @@ public class TaskList {
      * @param keyword String to use for search.
      * @return ArrayList of Tasks.
      */
-    public ArrayList<Task> find (String keyword) {
+    public ArrayList<Task> find(String keyword) {
         ArrayList<Task> results = new ArrayList<>();
         for (Task task : tasks) {
             if (task.getDescription().toLowerCase().contains(keyword)) {

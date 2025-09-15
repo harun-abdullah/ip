@@ -22,11 +22,7 @@ public class DeleteCommand extends Command {
         String[] split = input.split(" ");
         int index = Parser.validateTaskNumber(split[1], tasks.getTasks().size()) - 1;
         Task task = tasks.getTasks().get(index);
-        try {
-            tasks.handleDelete(index);
-        } catch (IOException e) {
-            throw new RakanException(e.getMessage());
-        }
+        tasks.handleDelete(index);
         ui.showMessages(
                 " Noted. I've removed this task:",
                 "   " + task,
