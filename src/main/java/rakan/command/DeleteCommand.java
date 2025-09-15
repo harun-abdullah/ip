@@ -16,12 +16,16 @@ public class DeleteCommand extends Command {
     }
 
     @Override
-    public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException, IOException {
+    public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException {
 
         String[] deleteParts = input.split(" ");
         int index = Integer.parseInt(deleteParts[1]);
         Task task = tasks.getTasks().get(index);
-        tasks.handleDelete(index);
+        try {
+            tasks.handleDelete(index);
+        } catch (IOException e) {
+            throw new RakanException(e.getMessage());
+        }
         ui.showMessages(
                 " Noted. I've removed this task:",
                 "   " + task,
