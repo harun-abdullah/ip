@@ -6,31 +6,45 @@ import rakan.tasklist.TaskList;
 
 import java.util.ArrayList;
 
+/**
+ * Handles formatting and assembling messages to be displayed in the GUI.
+ * <p>
+ * This class builds responses in a {@link StringBuilder}
+ * which is displayed by the GUI.
+ * </p>
+ */
 public class Ui {
     private StringBuilder responseBuilder;
 
+    /**
+     * Constructs a {@code Ui} with a fresh response buffer.
+     */
     public Ui() {
         responseBuilder = new StringBuilder();
     }
 
     /**
-     * Returns greeting message when starting Rakan.
+     * Returns the greeting message displayed when Rakan starts.
      *
-     * @return Greeting message.
+     * @return A greeting string.
      */
     public String greet() {
         return "Wazzap. I'm Rakan. \uD83D\uDD25 \uD83D\uDD25 \uD83D\uDD25\nHow can I help you?";
     }
 
     /**
-     * Returns goodbye message when closing Rakan.
-     *
-     * @return Exit message.
+     * Appends the goodbye message when Rakan exits.
      */
     public void showExit() {
         responseBuilder.append("Oh, bye then! See you later vro \uD83E\uDD40 \uD83E\uDD40 \uD83E\uDD40");
     }
 
+    /**
+     * Appends a confirmation message after adding a task.
+     *
+     * @param task     The task that was added.
+     * @param taskList The list containing all tasks (used to show total count).
+     */
     public void showAddedTask(Task task, TaskList taskList) {
         int taskCount = taskList.getTasks().size();
         responseBuilder.append("Got it. I've added this task:\n");
@@ -39,10 +53,10 @@ public class Ui {
     }
 
     /**
-     * Displays list of tasks with indexes.
+     * Displays all tasks in the provided list with indexes.
      *
-     * @param taskList List of tasks to be displayed.
-     * @throws RakanException If list is empty.
+     * @param taskList List of tasks to display.
+     * @throws RakanException If the list is empty.
      */
     public void showList(ArrayList<Task> taskList) throws RakanException {
         if (taskList.isEmpty()) {
@@ -58,10 +72,10 @@ public class Ui {
     }
 
     /**
-     * Display results of find() from TaskList.
+     * Displays the results of a keyword search in the task list.
      *
-     * @param taskList List of Tasks to be displayed.
-     * @throws RakanException If no results are found after searching.
+     * @param taskList The list of matching tasks to display.
+     * @throws RakanException If no matches are found.
      */
     public void showFindResults(ArrayList<Task> taskList) throws RakanException {
         if (taskList.isEmpty()) {
@@ -76,20 +90,38 @@ public class Ui {
         }
     }
 
+    /**
+     * Appends a single message to the response buffer.
+     *
+     * @param message The message to append.
+     */
     public void showMessage(String message) {
         responseBuilder.append(message).append("\n");
     }
 
+    /**
+     * Appends multiple messages to the response buffer.
+     *
+     * @param messages One or more messages to append.
+     */
     public void showMessages(String... messages) {
         for (String message : messages) {
             responseBuilder.append(message).append("\n");
         }
     }
 
+    /**
+     * Returns the complete response built so far.
+     *
+     * @return The response string with leading/trailing whitespace trimmed.
+     */
     public String getResponse() {
         return responseBuilder.toString().trim();
     }
 
+    /**
+     * Clears all previously stored messages in the response buffer.
+     */
     public void clearMessages() {
         responseBuilder.setLength(0);
     }
