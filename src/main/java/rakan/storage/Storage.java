@@ -10,20 +10,32 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
+/**
+ * Handles persistent storage of tasks.
+ * <p>
+ * Responsible for saving and loading {@link Task} objects
+ * to and from a specified file in a simple text format.
+ */
 public class Storage {
     private String filePath;
     private final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("d/M/yyyy HHmm");
 
     /**
-     * Constructs Storage object with file path.
-     * File path dictates where to save to and load from.
+     * Constructs a {@code Storage} instance with the given file path.
+     * The file path determines where tasks are saved and loaded from.
      *
-     * @param filePath File path specified for storage.
+     * @param filePath the location of the save file
      */
     public Storage(String filePath) {
         this.filePath = filePath;
     }
 
+    /**
+     * Ensures that the storage file and its parent directories exist.
+     * Creates them if necessary.
+     *
+     * @throws IOException if the file or directories cannot be created
+     */
     private void ensureFileExists() throws IOException {
         File file = new File(filePath);
         File parent = file.getParentFile();
@@ -38,9 +50,10 @@ public class Storage {
     }
 
     /**
-     * Saves tasks currently in tasklist to the .txt file.
+     * Saves the given list of tasks to the storage file.
+     * Each task is serialized into a line of text.
      *
-     * @param tasks Tasklist to be saved.
+     * @param tasks the list of tasks to save
      */
     public void saveTasks(ArrayList<Task> tasks) {
 
@@ -60,9 +73,10 @@ public class Storage {
     }
 
     /**
-     * Returns tasklist from .txt file.
+     * Loads tasks from the storage file.
+     * Each line is deserialized back into a {@link Task} object.
      *
-     * @return Tasklist as an ArrayList<Task>.
+     * @return a list of tasks, or an empty list if no file exists
      */
     public ArrayList<Task> loadTasks() {
         ArrayList<Task> tasks = new ArrayList<>();
@@ -90,7 +104,13 @@ public class Storage {
         return tasks;
     }
 
-    // Convert a task to serialised string to store
+    /**
+     * Converts a {@link Task} into its string representation
+     * suitable for storage in the save file.
+     *
+     * @param task the task to serialize
+     * @return the serialized string
+     */
     private String serialize(Task task) {
         StringBuilder sb = new StringBuilder();
 
@@ -114,7 +134,12 @@ public class Storage {
         return sb.toString();
     }
 
-    // Convert a line into a Rakan.Tasks.Task object
+    /**
+     * Converts a line of text from the save file into a {@link Task} object.
+     *
+     * @param line the serialized task line
+     * @return the deserialized {@link Task}, or {@code null} if parsing fails
+     */
     private Task deserialize(String line) {
         String[] parts = line.split(" \\| ");
         String type = parts[0];
