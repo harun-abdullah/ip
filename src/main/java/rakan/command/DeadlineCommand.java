@@ -33,7 +33,7 @@ public class DeadlineCommand extends Command {
      * Adds it in the given tasklist and saves the list to storage.
      * Displays Ui message to show successful Deadline task execution.
      *
-     * @param tasks TaskList to work with.
+     * @param tasks TaskList to add to.
      * @param ui Ui object to display messages during execution.
      * @param storage Storage object used during task saving.
      * @throws RakanException Exception for errors in adding and saving.
