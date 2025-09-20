@@ -23,6 +23,7 @@ public class Main extends Application {
             stage.setScene(scene);
             stage.setMinHeight(220);
             stage.setMinWidth(417);
+            stage.setTitle("Rakan - Task Manager");
             fxmlLoader.<MainWindow>getController().setRakan(rakan);
             stage.show();
         } catch (IOException e) {
