@@ -6,27 +6,38 @@ import rakan.task.Task;
 
 import java.util.ArrayList;
 
+/**
+ * Represents a list of {@link Task} objects.
+ * <p>
+ * Provides operations to add, delete, mark/unmark, and search tasks
+ * within the list.
+ */
 public class TaskList {
 
     private ArrayList<Task> tasks;
 
     /**
-     * Constructs tasklist.
+     * Constructs a {@code TaskList} with an existing collection of tasks.
      *
-     * @param tasks list of tasks.
+     * @param tasks the initial list of tasks
      */
     public TaskList(ArrayList<Task> tasks) {
         this.tasks = tasks;
     }
 
+    /**
+     * Returns the underlying current list of tasks.
+     *
+     * @return the task list
+     */
     public ArrayList<Task> getTasks() {
         return tasks;
     }
 
     /**
-     * Adds a task to the tasklist.
+     * Adds a task to the task list.
      *
-     * @param task Task to be added.
+     * @param task the task to add
      */
     public void addTask(Task task) {
         assert task != null : "Cannot add null task to tasklist";
@@ -34,9 +45,9 @@ public class TaskList {
     }
 
     /**
-     * Deletes specified task from the tasklist.
+     * Deletes a task from the task list at the specified index.
      *
-     * @param index Index of selected task.
+     * @param index the zero-based index of the task to delete
      */
     public void handleDelete(int index) {
         assert index >= 0 && index < tasks.size() : "Delete index is out of bounds: " + index + ", size: " + tasks.size();
@@ -44,10 +55,10 @@ public class TaskList {
     }
 
     /**
-     * Marks or unmarks specified task in the tasklist.
+     * Marks or unmarks a task in the list, depending on the parsed input.
      *
-     * @param parsed Contains index and whether it will be marked or unmarked.
-     * @throws RakanException If task is already marked as done or not.
+     * @param parsed contains the index of the task and whether to mark or unmark it
+     * @throws RakanException if the task is already in the requested marked/unmarked state
      */
     public void handleMark(ParsedMark parsed) throws RakanException {
         assert parsed.getTaskIndex() >= 0 && parsed.getTaskIndex() < tasks.size() :
@@ -68,10 +79,10 @@ public class TaskList {
     }
 
     /**
-     * Returns an ArrayList<Task> that match keyword.
+     * Finds all tasks whose descriptions contain the given keyword (case-insensitive).
      *
-     * @param keyword String to use for search.
-     * @return ArrayList of Tasks.
+     * @param keyword the search keyword
+     * @return a list of matching tasks
      */
     public ArrayList<Task> find(String keyword) {
         assert keyword != null : "Find keyword cannot be null";
