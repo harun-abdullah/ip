@@ -10,13 +10,34 @@ import rakan.task.Task;
 import rakan.tasklist.TaskList;
 import rakan.ui.Ui;
 
+/**
+ * In charge of creating Deadline task and saving it in the given tasklist.
+ */
 public class EventCommand extends Command {
+    /**
+     * String containing description and by datetime of the Event task to be created.
+     */
     private String input;
 
+    /**
+     * Constructor for EventCommand.
+     *
+     * @param input User input containing description and to/from datetimes of the Event task.
+     */
     public EventCommand(String input) {
         this.input = input;
     }
 
+    /**
+     * Creates new Event task with input.
+     * Adds it in the given tasklist and saves the list to storage.
+     * Displays Ui message to show successful Event task execution.
+     *
+     * @param tasks TaskList to work with.
+     * @param ui Ui object to display messages during execution.
+     * @param storage Storage object used during task saving.
+     * @throws RakanException Exception for errors in adding and saving.
+     */
     @Override
     public void execute(TaskList tasks, Ui ui, Storage storage) throws RakanException {
         String[] fromSplit = input.split(" /from ");
