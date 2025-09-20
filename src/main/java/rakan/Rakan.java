@@ -6,6 +6,14 @@ import rakan.storage.Storage;
 import rakan.tasklist.TaskList;
 import rakan.ui.Ui;
 
+/**
+ * Core class that drives the Rakan application.
+ * <p>
+ * This class coordinates between the {@link Parser}, {@link Command},
+ * {@link TaskList}, {@link Storage}, and {@link Ui} components to
+ * process user input, execute commands, and return responses to display in the GUI.
+ * </p>
+ */
 public class Rakan {
 
     private Ui ui;
@@ -14,9 +22,9 @@ public class Rakan {
     private boolean shouldExit = false;
 
     /**
-     * Constructs Rakan instance.
+     * Constructs a new {@code Rakan} instance.
      *
-     * @param filePath File path for storage.
+     * @param filePath The file path used for persistent task storage.
      */
     public Rakan(String filePath) {
         ui = new Ui();
@@ -25,11 +33,15 @@ public class Rakan {
     }
 
     /**
-     * Returns a string response to be displayed in the GUI.
-     * Also forms the main logic for Rakan.
+     * Processes a single user input string and returns the corresponding response.
+     * <p>
+     * The input is parsed into a {@link Command}, executed on the
+     * {@link TaskList}, and any output is collected via the {@link Ui}.
+     * If an error occurs, its message is returned instead.
+     * </p>
      *
-     * @param userInput User input String for Rakan to process.
-     * @return String response.
+     * @param userInput The raw input string entered by the user.
+     * @return The formatted response to be displayed in the GUI.
      */
     public String getResponse(String userInput) {
         assert ui != null : "UI cannot be null";
@@ -50,12 +62,21 @@ public class Rakan {
         }
     }
 
+    /**
+     * Indicates whether the application should exit.
+     *
+     * @return {@code true} if the last command requested exit; {@code false} otherwise.
+     */
     public boolean shouldExit() {
         return shouldExit;
     }
 
+    /**
+     * Returns the {@link Ui} instance associated with this Rakan session.
+     *
+     * @return The UI component.
+     */
     public Ui getUi() {
         return ui;
     }
-
 }
