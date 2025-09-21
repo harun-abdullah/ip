@@ -1,26 +1,138 @@
-# Rakan project template
+# Rakan User Guide
 
-This is a project template for a greenfield Java project. It's named after the Java mascot _Duke_. Given below are instructions on how to use it.
+![Screenshot of Rakan in action](Ui.png)
 
-## Setting up in Intellij
+Rakan is a desktop app for managing tasks using an intuitive CLI, and gorgeous GUI.
 
-Prerequisites: JDK 17, update Intellij to the most recent version.
+## Quick Start
 
-1. Open Intellij (if you are not in the welcome screen, click `File` > `Close Project` to close the existing project first)
-1. Open the project into Intellij as follows:
-   1. Click `Open`.
-   1. Select the project directory, and click `OK`.
-   1. If there are any further prompts, accept the defaults.
-1. Configure the project to use **JDK 17** (not other versions) as explained in [here](https://www.jetbrains.com/help/idea/sdk.html#set-up-jdk).<br>
-   In the same dialog, set the **Project language level** field to the `SDK default` option.
-1. After that, locate the `src/main/java/Rakan.java` file, right-click it, and choose `Run Rakan.main()` (if the code editor is showing compile errors, try restarting the IDE). If the setup is correct, you should see something like the below as the output:
-   ```
-   Hello from
-    ____        _        
-   |  _ \ _   _| | _____ 
-   | | | | | | | |/ / _ \
-   | |_| | |_| |   <  __/
-   |____/ \__,_|_|\_\___|
-   ```
+1. Make sure you have at least Java 17 on your computer.
+2. Download the latest .jar release here
+3. Open the program and get started!
 
-**Warning:** Keep the `src\main\java` folder as the root folder for Java files (i.e., don't rename those folders or move Java files to another folder outside of this folder path), as this is the default location some tools (e.g., Gradle) expect to find Java files.
+## Features
+
+There are 3 types of tasks the user can deal with in Rakan:
+* Todos
+* Deadlines
+* Events
+
+
+The user inputs commands to Rakan fully through the CLI.
+The commands can be either typed in full form or short form, for convenience.
+
+When typing in date times, the following format (dd/mm/yyyy hhmm) must be used.
+E.g: "31/12/2020 1900"
+
+Here are the list of commands to help you:
+
+---
+
+### Listing tasks - "list" / "l"
+
+Lets the user view all their existing tasks in a list.
+Takes no arguments.
+
+Example: `list`
+
+---
+
+### Creating Todo tasks - "todo" / "t" + (description)
+
+Lets the user create a todo task with only a description.
+
+Example: `t read book`
+
+---
+
+### Creating Deadline tasks - "deadline" / "d" + (description) + "/by" + (date/time)
+
+Lets the user create a task with a deadline.
+
+Example: `d submit assignment /by 15/09/2025 2359`
+
+---
+
+### Creating Event tasks - "event" / "e" + (description) + "/from" + (date/time) + "/to" + (date/time)
+
+Lets the user create an event with specific starting and ending time.
+
+Example: `event CS2103T meeting /at 16/09/2025 1400`
+
+---
+
+### Marking tasks as done - "mark" / "m" + (index)
+
+Marks a task as completed, using its index in the list.
+
+Example: `m 2`
+
+---
+
+### Unmarking tasks - "unmark" / "u" + (index)
+
+Reverts a completed task back to "not done".
+
+Example: `u 2`
+
+---
+
+### Deleting tasks - "delete" / "del" + (index)
+
+Deletes the task at the given index from the list.
+
+Example: `delete 3`
+
+---
+
+### Finding tasks - "find" / "f" + (keyword)
+
+Searches for tasks that contain the given keyword in their description.
+
+Example: `f book`
+
+---
+
+### Exiting the app - "bye" / "b"
+
+Exits the application.
+
+Example: `bye`
+
+---
+
+## Saving the Data
+
+Rakan automatically saves your tasks to the hard disk after any command.  
+Your data will be stored in `./data/rakan.txt` by default, and will be loaded each time you run the app.
+
+---
+
+## GUI Overview
+
+- The **CLI box** at the bottom is where you type your commands.
+- The **button** is used to submit commands to Rakan.
+- The **dialog area** shows the conversation with Rakan.
+- The conversation can be scrolled through via the **scrollbar** on the right.
+
+---
+
+## Command Summary
+
+| Command       | Short Form | Format Example                                                  |
+|---------------|-----------|-----------------------------------------------------------------|
+| list          | l         | `list`                                                          |
+| todo          | t         | `todo read book`                                                |
+| deadline      | d         | `d submit assignment /by 15/09/2025 2359`                       |
+| event         | e         | `event project meeting /from 16/09/2025 1400 /to 16/092025 1600` |
+| mark          | m         | `m 2`                                                           |
+| unmark        | u         | `u 2`                                                           |
+| delete        | del       | `delete 3`                                                      |
+| find          | f         | `find book`                                                     |
+| bye           | b         | `bye`                                                           |
+
+---
+
+### Feedback
+
+For any issues, email me at harunabdullah003@gmail.com, or message me on telegram at @h_a_v_w_d
