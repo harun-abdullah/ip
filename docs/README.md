@@ -7,7 +7,7 @@ Rakan is a desktop app for managing tasks using an intuitive CLI, and gorgeous G
 ## Quick Start
 
 1. Make sure you have at least Java 17 on your computer.
-2. Download the latest .jar release here
+2. Download the latest .jar release [here](https://github.com/harun-abdullah/ip/releases/tag/v0.2)
 3. Open the program and get started!
 
 ## Features
