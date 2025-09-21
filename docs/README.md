@@ -55,7 +55,7 @@ Example: `d submit assignment /by 15/09/2025 2359`
 
 ### Creating Event tasks - "event" / "e" + (description) + "/from" + (date/time) + "/to" + (date/time)
 
-Lets the user create an event with a specific time.
+Lets the user create an event with specific starting and ending time.
 
 Example: `event CS2103T meeting /at 16/09/2025 1400`
 
@@ -69,11 +69,11 @@ Example: `m 2`
 
 ---
 
-### Unmarking tasks - "unmark" / "um" + (index)
+### Unmarking tasks - "unmark" / "u" + (index)
 
 Reverts a completed task back to "not done".
 
-Example: `um 2`
+Example: `u 2`
 
 ---
 
@@ -112,23 +112,24 @@ Your data will be stored in `./data/rakan.txt` by default, and will be loaded ea
 
 - The **CLI box** at the bottom is where you type your commands.
 - The **button** is used to submit commands to Rakan.
-- The **dialog area** shows the conversation with Rakan.
+- The **dialog area** shows the conversation with Rakan. 
+- The conversation can be scrolled through via the **scrollbar** on the right.
 
 ---
 
 ## Command Summary
 
-| Command       | Short Form | Format Example                                                   |
-|---------------|------------|------------------------------------------------------------------|
-| list          | l          | `list`                                                           |
-| todo          | t          | `todo read book`                                                 |
-| deadline      | d          | `d submit assignment /by 15/09/2025 2359`                        |
-| event         | e          | `event project meeting /from 16/09/2025 1400 /to 16/092025 1600` |
-| mark          | m          | `m 2`                                                            |
-| unmark        | um         | `um 2`                                                           |
-| delete        | del        | `delete 3`                                                       |
-| find          | f          | `find book`                                                      |
-| bye           | b          | `bye`                                                            |
+| Command       | Short Form | Format Example                                                  |
+|---------------|-----------|-----------------------------------------------------------------|
+| list          | l         | `list`                                                          |
+| todo          | t         | `todo read book`                                                |
+| deadline      | d         | `d submit assignment /by 15/09/2025 2359`                       |
+| event         | e         | `event project meeting /from 16/09/2025 1400 /to 16/092025 1600` |
+| mark          | m         | `m 2`                                                           |
+| unmark        | u         | `u 2`                                                           |
+| delete        | del       | `delete 3`                                                      |
+| find          | f         | `find book`                                                     |
+| bye           | b         | `bye`                                                           |
 
 ---
 
