@@ -1,6 +1,6 @@
 # Rakan User Guide
 
-![Screenshot of Rakan in action](Ui.png)
+![Screenshot of Rakan in action](./docs/Ui.png)
 
 Rakan is a desktop app for managing tasks using an intuitive CLI, and gorgeous GUI.
 
